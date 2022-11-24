@@ -1,0 +1,15 @@
+.cards__like_active {
+	border: none;
+	min-width: 22px;
+	min-height: 19px;
+	align-self: center;
+	justify-self: center;
+	background-color: white;
+	background-image: url(../../../../images/like_active.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 22px 19px;
+	transition: 0.3s;
+	cursor: pointer;
+	margin-right: 20px;
+}
