@@ -4,12 +4,13 @@
 	background-color: black;
 	border: 1px solid white;
 	align-self: center;
-	background-image: url(../../../images/icons8-редактировать.svg);
+	background-image: url(../../../images/Editbutton.svg);
 	background-position: center;
 	background-size: 10px 10px;
 	background-repeat: no-repeat;
 	transition: 0.3s;
 	margin: 8px 0 0 25px;
+	cursor: pointer;
 }
 
 .profile__edit-button:hover {

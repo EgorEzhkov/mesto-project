@@ -1,15 +1,17 @@
 .cards__like {
 	border: none;
-	min-width: 31px;
-	min-height: 31px;
+	min-width: 22px;
+	min-height: 19px;
 	align-self: center;
 	justify-self: center;
 	background-color: white;
-	background-image: url(../../../images/icons8-hearth.svg);
+	background-image: url(../../../images/like.svg);
 	background-repeat: no-repeat;
 	background-position: center;
-	background-size: 31px 28px;
+	background-size: 22px 19px;
 	transition: 0.3s;
+	cursor: pointer;
+	margin-right: 20px;
 }
 
 .cards__like:hover {

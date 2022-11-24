@@ -10,3 +10,9 @@
 	opacity: 1;
 	border-radius: 10px;
 }
+
+@media screen and (max-width: 598px) {
+	.popup__container {
+		min-width: 282px;
+	}
+}
