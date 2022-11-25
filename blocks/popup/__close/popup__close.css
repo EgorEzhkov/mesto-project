@@ -6,7 +6,7 @@
   position: absolute;
   width: 37px;
   height: 37px;
-  right: -40px;
+  right: -44px;
   top: -40px;
   cursor: pointer;
   transition: 0.3s;
@@ -22,7 +22,7 @@
     background-size: 20px 20px;
     width: 24px;
     height: 24px;
-    right: 0;
-    top: -35px;
+    right: -4px;
+    top: -36px;
   }
 }
