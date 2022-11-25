@@ -1,12 +1,14 @@
 .profile__info {
-	min-width: max-content;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	margin-bottom: 47px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 10px;
+
 }
 
-
-@media screen and (max-width: ) {
-
+@media screen and (max-width: 767px) {
+  .profile__info {
+    margin-top: 20px;
+    margin-bottom: 32px;
+  }
 }
