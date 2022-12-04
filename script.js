@@ -30,11 +30,11 @@ function handleFormSubmit(evt) {
     profileName.textContent = popupInputs[0].value;
     profileProfession.textContent = popupInputs[1].value;
 
-}
+};
 
 formElement.addEventListener('submit', handleFormSubmit);
 
 let popupSubmit = document.querySelector('.popup__submit');
 popupSubmit.addEventListener('click', function() {
   popup.classList.remove('popup_opened');
-})
+});
