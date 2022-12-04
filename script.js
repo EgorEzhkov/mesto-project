@@ -21,7 +21,6 @@ popupInputs[0].value = profileName.textContent;
 popupInputs[1].value = profileProfession.textContent;
 
 
-// Находим форму в DOM
 let formElement = document.querySelector('.popup__form');
 
 function handleFormSubmit(evt) {
