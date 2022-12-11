@@ -33,60 +33,16 @@
         </section>
         <section>
           <ul class="cards">
-            <li class="cards__card">
-              <img
-                src="./images/Karachaevks.png"
-                alt="Заброшенное антуражное здание на фоне леса на горе."
-                class="cards__image"
-              />
-              <h2 class="cards__name">Карачаевск</h2>
-              <button type="button" class="cards__like"></button>
-            </li>
-            <li class="cards__card">
-              <img
-                src="./images/dombai.png"
-                alt="Высокие осенние горы, на горизонте которых лежит снег."
-                class="cards__image"
-              />
-              <h2 class="cards__name">Домбай</h2>
-              <button type="button" class="cards__like"></button>
-            </li>
-            <li class="cards__card">
-              <img
-                src="./images/elbrus.png"
-                alt="Бескрайнее закатное поле, вдалеке горизонта виднеется гора."
-                class="cards__image"
-              />
-              <h2 class="cards__name">Гора Эльбрус</h2>
-              <button type="button" class="cards__like"></button>
-            </li>
-            <li class="cards__card">
-              <img
-                src="./images/Karachaevks.png"
-                alt="Заброшенное антуражное здание на фоне леса на горе."
-                class="cards__image"
-              />
-              <h2 class="cards__name">Карачаевск</h2>
-              <button type="button" class="cards__like"></button>
-            </li>
-            <li class="cards__card">
-              <img
-                src="./images/dombai.png"
-                alt="Высокие осенние горы, на горизонте которых лежит снег."
-                class="cards__image"
-              />
-              <h2 class="cards__name">Домбай</h2>
-              <button type="button" class="cards__like"></button>
-            </li>
-            <li class="cards__card">
-              <img
-                src="./images/elbrus.png"
-                alt="Бескрайнее закатное поле, вдалеке горизонта виднеется гора."
-                class="cards__image"
-              />
-              <h2 class="cards__name">Гора Эльбрус</h2>
-              <button type="button" class="cards__like"></button>
-            </li>
+            <template id="card">
+              <li class="cards__card">
+                <img
+                  src=""
+                  class="cards__image"
+                />
+                <h2 class="cards__name"></h2>
+                <button type="button" class="cards__like"></button>
+              </li>
+            </template>
           </ul>
         </section>
       </main>
@@ -94,7 +50,7 @@
         <p class="footer__name">&copy;2020 Mesto Russia</p>
       </footer>
     </div>
-    <div class="popup">
+    <div class="popup" id="edit_popup">
       <div class="popup__container">
         <h3 class="popup__title">Редактировать профиль</h3>
         <form name="Name-and-profession" class="popup__form">
@@ -102,7 +58,18 @@
           <input name="profession" type="text" placeholder="Профессия" class="popup__input" />
           <button type="submit" class="popup__submit">Сохранить</button>
         </form>
-        <button type="button" class="popup__close"></button>
+        <button type="button" class="popup__close" id="edit_popup_close"></button>
+      </div>
+    </div>
+    <div class="popup" id="add_popup">
+      <div class="popup__container">
+        <h3 class="popup__title">Новое место</h3>
+        <form name="mesto_and_link" class="popup__form" id="popup__form_add">
+          <input name="mesto" type="text" placeholder="Новое место" class="popup__input" />
+          <input name="link" type="src" placeholder="Ссылка на картинку" class="popup__input" />
+          <button type="submit" class="popup__submit" id="popup__submit_add">Создать</button>
+        </form>
+        <button type="button" class="popup__close" id="add_popup_close"></button>
       </div>
     </div>
     <script src="script.js"></script>
