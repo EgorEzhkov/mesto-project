@@ -25,30 +25,46 @@ function handleFormSubmitAdd(evt) {
   popupInputs[3].value = '';
 };
 
-//функция для добавления 6 фоток из массива и система лайков
+//функция для добавления 6 фоток из массива и система лайков + удаление card
 function cardsAddAppend(text, image) {
+  //добавление фоток
   let cardElement = cardTemplate.querySelector('.cards__card').cloneNode(true);
   cardElement.querySelector('.cards__image').src = image;
   cardElement.querySelector('.cards__name').textContent = text;
   cards.append(cardElement);
+  //система лайков
   const cardLikeElements = cardElement.querySelectorAll('.cards__like');
   cardLikeElements.forEach(function(el) {
     el.addEventListener('click', function() {
       el.classList.toggle('cards__like_active');
     });
   });
+  //удаление card
+  const cardTrash = cardElement.querySelector('.cards__trash');
+  cardTrash.addEventListener('click', function() {
+    let closestCard = cardTrash.closest('.cards__card');
+    closestCard.remove();
+  });
 };
 
 
-//функция для добавления фоток из popup'a сайта add и система лайков
+//функция для добавления фоток из popup'a сайта add и система лайков + удаление card
 function cardAddPrepend(text, image) {
+  //добавление фоток
   let cardElement = cardTemplate.querySelector('.cards__card').cloneNode(true);
   cardElement.querySelector('.cards__image').src = image;
   cardElement.querySelector('.cards__name').textContent = text;
   cards.prepend(cardElement);
+  //система лайков
   const cardLikeElements = cardElement.querySelector('.cards__like');
   cardLikeElements.addEventListener('click', function() {
     cardLikeElements.classList.toggle('cards__like_active');
+  });
+  //удаление card
+  const cardTrash = cardElement.querySelector('.cards__trash');
+  cardTrash.addEventListener('click', function() {
+    let closestCard = cardTrash.closest('.cards__card');
+    closestCard.remove();
   });
 };
 
@@ -78,7 +94,6 @@ const popupSubmit = document.querySelector('.popup__submit');
 popupSubmit.addEventListener('click', function() {
   popupEdit.classList.remove('popup_opened');
 });
-
 
 
 
@@ -134,8 +149,5 @@ popupFormAdd.addEventListener('submit', handleFormSubmitAdd);
 popupAddClose.addEventListener('click', function() {
   popupAdd.classList.remove('popup_opened');
 });
-
-
-
 
 
