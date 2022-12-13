@@ -1,4 +1,5 @@
 
+
 function popupHandler(popup, trigger) {
   trigger.addEventListener('click', function () {
     popup.classList.add('popup_opened');
@@ -25,6 +26,27 @@ function handleFormSubmitAdd(evt) {
   popupInputs[3].value = '';
 };
 
+//открытие попапа с фото
+function popupImageOpened() {
+  const popupImage = document.getElementById('image_popup');
+  let imagePopup = popupImage.querySelector('.popup__image');
+  let captionImage = document.querySelector('.popup__caption')
+  const popupImageClose = document.getElementById('image_popup_close');
+  const card = document.querySelectorAll('.cards__card');
+  card.forEach(function(el) {
+    const cardImage = el.querySelector('.cards__image');
+    const cardName = el.querySelector('.cards__name');
+    cardImage.addEventListener('click', function() {
+      popupImage.classList.add('popup_opened')
+      imagePopup.src = cardImage.src;
+      captionImage.textContent = cardName.textContent
+    });
+    popupImageClose.addEventListener('click', function() {
+      popupImage.classList.remove('popup_opened');
+    });
+  });
+};
+
 //функция для добавления 6 фоток из массива и система лайков + удаление card
 function cardsAddAppend(text, image) {
   //добавление фоток
@@ -45,8 +67,8 @@ function cardsAddAppend(text, image) {
     let closestCard = cardTrash.closest('.cards__card');
     closestCard.remove();
   });
+  popupImageOpened();
 };
-
 
 //функция для добавления фоток из popup'a сайта add и система лайков + удаление card
 function cardAddPrepend(text, image) {
@@ -66,13 +88,16 @@ function cardAddPrepend(text, image) {
     let closestCard = cardTrash.closest('.cards__card');
     closestCard.remove();
   });
+  popupImageOpened();
 };
-
 
 function initialCardsAdd(name, link) {
 	initialCards.unshift({name, link});
   cardAddPrepend(initialCards[0].name, initialCards[0].link)
 };
+
+
+
 
 const popupEdit = document.getElementById('edit_popup');
 const buttonEdit = document.querySelector('.profile__edit-button');
@@ -149,5 +174,4 @@ popupFormAdd.addEventListener('submit', handleFormSubmitAdd);
 popupAddClose.addEventListener('click', function() {
   popupAdd.classList.remove('popup_opened');
 });
-
 
