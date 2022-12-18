@@ -54,9 +54,9 @@
     <div class="popup" id="edit_popup">
       <div class="popup__container">
         <h3 class="popup__title">Редактировать профиль</h3>
-        <form name="Name-and-profession" class="popup__form">
-          <input name="name" type="text" placeholder="Имя" class="popup__input" />
-          <input name="profession" type="text" placeholder="Профессия" class="popup__input" />
+        <form name="NameAndProfession" class="popup__form">
+          <input id="name" type="text" placeholder="Имя" class="popup__input" />
+          <input id="profession" type="text" placeholder="Профессия" class="popup__input" />
           <button type="submit" class="popup__submit">Сохранить</button>
         </form>
         <button type="button" class="popup__close" id="edit_popup_close"></button>
@@ -66,8 +66,8 @@
       <div class="popup__container">
         <h3 class="popup__title">Новое место</h3>
         <form name="mesto_and_link" class="popup__form" id="popup__form_add">
-          <input name="mesto" type="text" placeholder="Новое место" class="popup__input" />
-          <input name="link" type="src" placeholder="Ссылка на картинку" class="popup__input" />
+          <input name="mesto" id="mesto" type="text" placeholder="Новое место" class="popup__input" value="" />
+          <input name="link" id="link" type="src" placeholder="Ссылка на картинку" class="popup__input" value=""/>
           <button type="submit" class="popup__submit" id="popup__submit_add">Создать</button>
         </form>
         <button type="button" class="popup__close" id="add_popup_close"></button>
