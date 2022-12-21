@@ -74,22 +74,14 @@ function handleFormSubmitAdd(evt) {
   inputMesto.textContent = inputNameMesto.value;
   inputLink.src = inputLinkMesto.value;
   initialCardsAdd(inputMesto.textContent, inputLink.src);
-  popupClose(popupAdd);
-
+	popupClose(popupAdd);
 };
 
-//открытие попапа с фото
-function popupImageOpened() {
-  const cardsAll = document.querySelectorAll('.cards__card');
-  cardsAll.forEach(function(el) {
-    const cardImage = el.querySelector('.cards__image');
-    const cardName = el.querySelector('.cards__name');
-    cardImage.addEventListener('click', function() {
-      imagePopup.src = cardImage.src;
-      captionImage.textContent = cardName.textContent
-      popupOpen(popupImage)
-    });
-    });
+//Заполнение ПоПуПа данными
+function popupImageOpened(text, image) {
+	imagePopup.src = image;
+	captionImage.textContent = text ;
+	popupOpen(popupImage)
 };
 
 
@@ -110,25 +102,22 @@ function createCard(text, image) {
     closestCard.remove();
   });
   //открытие попупа
-    popupImageOpened()
+	const cardImage = cardElement.querySelector('.cards__image')
+  cardImage.addEventListener('click', () => popupImageOpened(text, image));
   return cardElement;
 };
 
+
 function initialCardsAdd(name, link) {
   cards.prepend(createCard(name, link))
-  popupImageOpened()
-  inputNameMesto.value = '';
-  inputLinkMesto.value = '';
 };
-
-
 
 
 formElement.addEventListener('submit', handleFormSubmit);
 
 popupFormAdd.addEventListener('submit', handleFormSubmitAdd);
 
-
+//Слушатель на кнопку закрытия ПоПуПа картинок, повешенный глобально
 popupImageClose.addEventListener('click', function() {
   popupClose(popupImage);
 });
@@ -143,6 +132,8 @@ popupEditClose.addEventListener('click', function() {
 
 buttonAdd.addEventListener('click', function() {
   popupOpen(popupAdd);
+	inputNameMesto.value = '';
+  inputLinkMesto.value = '';
 });
 
 popupAddClose.addEventListener('click', function() {
