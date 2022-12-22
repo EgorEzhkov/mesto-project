@@ -105,7 +105,6 @@ function createCard(text, image) {
     closestCard.remove();
   });
   //открытие попупа
-
   cardImage.addEventListener('click', () => openedPopupImage(text, image));
   return cardElement;
 };
