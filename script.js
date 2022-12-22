@@ -78,7 +78,7 @@ function handleFormSubmitAdd(evt) {
 };
 
 //Заполнение ПоПуПа данными
-function popupImageOpened(text, image) {
+function openedPopupImage(text, image) {
 	imagePopup.src = image;
   imagePopup.alt = text;
 	captionImage.textContent = text ;
@@ -106,7 +106,7 @@ function createCard(text, image) {
   });
   //открытие попупа
 
-  cardImage.addEventListener('click', () => popupImageOpened(text, image));
+  cardImage.addEventListener('click', () => openedPopupImage(text, image));
   return cardElement;
 };
 
