@@ -89,7 +89,7 @@ function openedPopupImage(text, image) {
 function createCard(text, image) {
   //добавление фоток
   const cardElement = cardTemplate.querySelector('.cards__card').cloneNode(true);
-  const cardImage = cardElement.querySelector('.cards__image')
+  const cardImage = cardElement.querySelector('.cards__image');
   cardImage.src = image;
   cardImage.alt = text;
   cardElement.querySelector('.cards__name').textContent = text;
