@@ -80,6 +80,7 @@ function handleFormSubmitAdd(evt) {
 //Заполнение ПоПуПа данными
 function popupImageOpened(text, image) {
 	imagePopup.src = image;
+  imagePopup.alt = text;
 	captionImage.textContent = text ;
 	popupOpen(popupImage)
 };
@@ -88,7 +89,9 @@ function popupImageOpened(text, image) {
 function createCard(text, image) {
   //добавление фоток
   const cardElement = cardTemplate.querySelector('.cards__card').cloneNode(true);
-  cardElement.querySelector('.cards__image').src = image;
+  const cardImage = cardElement.querySelector('.cards__image')
+  cardImage.src = image;
+  cardImage.alt = text;
   cardElement.querySelector('.cards__name').textContent = text;
   //система лайков
   const cardLikeElement = cardElement.querySelector('.cards__like');
@@ -102,7 +105,7 @@ function createCard(text, image) {
     closestCard.remove();
   });
   //открытие попупа
-	const cardImage = cardElement.querySelector('.cards__image')
+
   cardImage.addEventListener('click', () => popupImageOpened(text, image));
   return cardElement;
 };
