@@ -187,6 +187,24 @@ const hideInputError = (form, input) => {
   errorElement.textContent = '';
 }
 
+const hasInvalidInput = (inputList) => {
+  return inputList.some((input) => {
+    return !input.validity.valid;
+  })
+};
+
+const toggleButtonState = (inputList, buttonElement) => {
+  // Если есть хотя бы один невалидный инпут
+  if (hasInvalidInput(inputList)) {
+    buttonElement.disabled = true;
+    buttonElement.classList.add('popup__submit_disabled');
+  } else {
+      buttonElement.disabled = false;
+      buttonElement.classList.remove('popup__submit_disabled');
+  }
+};
+
+
 const checkInputValidity = (form, input) => {
   if (input.validity.patternMismatch) {
     input.setCustomValidity(input.dataset.errorMessage);
@@ -202,9 +220,12 @@ const checkInputValidity = (form, input) => {
 
 const setEventListeners = (form) => {
   const inputList = Array.from(form.querySelectorAll('.popup__input'));
+  const buttonElement = form.querySelector('.popup__submit')
+  toggleButtonState(inputList, buttonElement)
   inputList.forEach((input) => {
     input.addEventListener('input', () => {
       checkInputValidity(form, input);
+      toggleButtonState(inputList, buttonElement)
     });
   });
 };
@@ -218,5 +239,8 @@ const enableValidation = () => {
     setEventListeners(form);
   });
 };
+
+
+
 
 enableValidation()
