@@ -83,7 +83,7 @@
             />
             <span class="profession-error"></span>
           </label>
-          <button type="submit" class="popup__submit">Сохранить</button>
+          <button type="submit" class="popup__submit" disabled>Сохранить</button>
         </form>
         <button type="button" class="popup__close" id="edit_popup_close"></button>
       </div>
@@ -120,7 +120,7 @@
             />
             <span class="link-error"></span>
           </label>
-          <button type="submit" class="popup__submit" id="popup__submit_add">Создать</button>
+          <button type="submit" class="popup__submit" id="popup__submit_add" disabled>Создать</button>
         </form>
         <button type="button" class="popup__close" id="add_popup_close"></button>
       </div>
@@ -134,6 +134,10 @@
         <button type="button" class="popup__close" id="image_popup_close"></button>
       </div>
     </div>
-    <script src="script.js"></script>
+    <script type="module" src="src/components/card.js"></script>
+    <script type="module" src="src/components/modal.js"></script>
+    <script type="module" src="src/components/utils.js"></script>
+    <script type="module" src="src/components/validate.js"></script>
+    <script type="module" src="src/index.js"></script>
   </body>
 </html>
