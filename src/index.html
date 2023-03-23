@@ -4,13 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mesto</title>
-    <link rel="stylesheet" href="./pages/index.css" />
+    <link rel="stylesheet" href="../src/index.css" />
   </head>
   <body>
     <div class="page">
       <header class="header">
           <img
-            src="./images/logo.svg"
+            src="../images/logo.svg"
             alt="Логотип страницы"
             class="header__logo"
           />
@@ -19,7 +19,7 @@
         <section class="profile">
           <img
             class="profile__avatar"
-            src="./images/Avatar.png"
+            src="../images/Avatar.png"
             alt="Фотография профиля"
           />
           <div class="profile__info">
@@ -40,7 +40,7 @@
                   alt=""
                   class="cards__image"
                 />
-                <img src="./images/Trash.svg" alt="" class="cards__trash">
+                <img src="../images/Trash.svg" alt="" class="cards__trash">
                 <h2 class="cards__name"></h2>
                 <button type="button" class="cards__like"></button>
               </li>
@@ -134,10 +134,10 @@
         <button type="button" class="popup__close" id="image_popup_close"></button>
       </div>
     </div>
-    <script type="module" src="src/components/card.js"></script>
-    <script type="module" src="src/components/modal.js"></script>
-    <script type="module" src="src/components/utils.js"></script>
-    <script type="module" src="src/components/validate.js"></script>
-    <script type="module" src="src/index.js"></script>
+    <script type="module" src="components/card.js"></script>
+    <script type="module" src="components/modal.js"></script>
+    <script type="module" src="components/utils.js"></script>
+    <script type="module" src="components/validate.js"></script>
+    <script type="module" src="index.js"></script>
   </body>
 </html>
