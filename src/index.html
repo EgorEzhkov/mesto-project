@@ -4,13 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mesto</title>
-    <link rel="stylesheet" href="../src/index.css" />
   </head>
   <body>
     <div class="page">
       <header class="header">
           <img
-            src="../images/logo.svg"
+            src="<%=require('./images/logo.svg')%>"
             alt="Логотип страницы"
             class="header__logo"
           />
@@ -19,7 +18,7 @@
         <section class="profile">
           <img
             class="profile__avatar"
-            src="../images/Avatar.png"
+            src="<%=require('./images/Avatar.png')%>"
             alt="Фотография профиля"
           />
           <div class="profile__info">
@@ -31,7 +30,7 @@
           </div>
           <button type="button" class="profile__add-button"></button>
         </section>
-        <section>
+        <div>
           <ul class="cards">
             <template id="card">
               <li class="cards__card">
@@ -40,13 +39,13 @@
                   alt=""
                   class="cards__image"
                 />
-                <img src="../images/Trash.svg" alt="" class="cards__trash">
+                <img src="<%=require('./images/Trash.svg')%>" alt="" class="cards__trash">
                 <h2 class="cards__name"></h2>
                 <button type="button" class="cards__like"></button>
               </li>
             </template>
           </ul>
-        </section>
+        </div>
       </main>
       <footer class="footer">
         <p class="footer__name">&copy;2020 Mesto Russia</p>
@@ -54,7 +53,7 @@
     </div>
     <div class="popup" id="edit_popup">
       <div class="popup__container">
-        <h3 class="popup__title">Редактировать профиль</h3>
+        <h2 class="popup__title">Редактировать профиль</h2>
         <form name="nameAndProfession" class="popup__form" novalidate>
           <label class="popup__label">
             <input
@@ -134,10 +133,5 @@
         <button type="button" class="popup__close" id="image_popup_close"></button>
       </div>
     </div>
-    <script type="module" src="components/card.js"></script>
-    <script type="module" src="components/modal.js"></script>
-    <script type="module" src="components/utils.js"></script>
-    <script type="module" src="components/validate.js"></script>
-    <script type="module" src="index.js"></script>
   </body>
 </html>

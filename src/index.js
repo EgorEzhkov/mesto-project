@@ -1,3 +1,4 @@
+import './styles/index.css'
 import {cards, initialCards, createCard} from './components/card.js';
 import {openedPopupImage,
   popupImageClose,
@@ -18,12 +19,31 @@ const buttonEdit = document.querySelector('.profile__edit-button');
 const buttonAdd = document.querySelector('.profile__add-button');
 const formElement = document.querySelector('.popup__form');
 const popupFormAdd = document.getElementById('popup__form_add');
+export const allImages = [
+  {
+    name: "CloseIcon",
+    link: "../images/Close-Icon.svg"
+  },
+  {
+    name: "EditButton",
+    link: "../images/Editbutton.svg"
+  },
+  {
+    name: "like",
+    link: "../images/like.svg"
+  },
+  {
+    name: "likeActive",
+    link: "../images/like_active.svg"
+  }
+]
 
 
 //Загрузка начальных карточек
 for (let i = 0; i < initialCards.length; i++) {
   cards.append(createCard(initialCards[i].name, initialCards[i].link));
 };
+
 
 
 //делегирование cards(лайк, удаление card, открытие модального окна)

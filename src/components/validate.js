@@ -1,18 +1,18 @@
-const showInputError = (form, input, errorMessage) => {
+export const showInputError = (form, input, errorMessage) => {
   const errorElement = form.querySelector(`.${input.id}-error`);
   input.classList.add('popup__input_type_error');
   errorElement.textContent = errorMessage;
   errorElement.classList.add('popup__input_error-active');
 };
 
-const hideInputError = (form, input) => {
+export const hideInputError = (form, input) => {
   const errorElement = form.querySelector(`.${input.id}-error`);
   input.classList.remove('popup__input_type_error');
   errorElement.classList.remove('popup__input_error-active');
   errorElement.textContent = '';
 }
 
-const hasInvalidInput = (inputList) => {
+export const hasInvalidInput = (inputList) => {
   return inputList.some((input) => {
     return !input.validity.valid;
   })
