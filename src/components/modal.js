@@ -19,45 +19,46 @@ export const popupAddClose = document.getElementById('add_popup_close');
 
 
 
-export function popupOpen(popup) {
+export function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closeByEscape);
 };
 
-export function popupClose(popup) {
+export function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closeByEscape);
 };
 
-export function openedPopupImage(text, image) {
+export function closeByEscape(evt) {
+  if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened')
+    closePopup(openedPopup);
+  }
+};
+
+export function openPopupImage(text, image) {
 	imagePopup.src = image;
   imagePopup.alt = text;
 	captionImage.textContent = text ;
-	popupOpen(popupImage)
+	openPopup(popupImage)
 };
 
 
-export const popupCloseKeydown = (popup) => {
-  document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape' && popup.classList.contains('popup_opened')) {
-      popupClose(popup)
-    }
-  })
-};
 
-
-export const popupCloseOverlay = (popup) => {
+export const closePopupOverlay = (popup) => {
   popup.addEventListener('click', (evt) => {
     if (evt.currentTarget === evt.target) {
-      popupClose(popup)
+      closePopup(popup)
     }
   })
-}
+};
 
 
 export function handleFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = inputName.value;
   profileProfession.textContent = inputProfession.value;
-  popupClose(popupEdit);
+  closePopup(popupEdit);
 };
 
 
@@ -66,20 +67,19 @@ export function handleFormSubmitAdd(evt) {
   inputMesto.textContent = inputNameMesto.value;
   inputLink.src = inputLinkMesto.value;
   initialCardsAdd(inputMesto.textContent, inputLink.src);
-	popupClose(popupAdd);
+	closePopup(popupAdd);
   evt.target.reset();
   popupSubmitAdd.classList.add('popup__submit_disabled');
   popupSubmitAdd.disabled = true;
 };
 
 
-export const popupCloseKeydownAndOverlay = () => {
+export const closePopupOverlayAll = () => {
   const popupList = Array.from(document.querySelectorAll('.popup'))
   popupList.forEach((popup) => {
-    popupCloseKeydown(popup);
-    popupCloseOverlay(popup);
+    closePopupOverlay(popup);
   });
-}
+};
 
 
 inputName.value = profileName.textContent;

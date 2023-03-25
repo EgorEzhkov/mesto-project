@@ -1,17 +1,18 @@
 import './styles/index.css'
 import {cards, initialCards, createCard} from './components/card.js';
-import {openedPopupImage,
+import {openPopupImage,
   popupImageClose,
   popupEditClose,
   popupAddClose,
-  popupClose,
-  popupOpen,
+  closePopup,
+  openPopup,
   popupImage,
   popupEdit,
   popupAdd,
   handleFormSubmit,
   handleFormSubmitAdd,
-  popupCloseKeydownAndOverlay
+  closePopupOverlayAll,
+  closeByEscape
 } from './components/modal.js';
 import { enableValidation } from './components/validate.js';
 
@@ -55,36 +56,36 @@ cards.addEventListener('click', (evt) => {
     evt.target.closest('.cards__card').remove()
   };
   if (evt.target.classList.contains('cards__image')) {
-    openedPopupImage(evt.target.alt, evt.target.src)
+    openPopupImage(evt.target.alt, evt.target.src)
   }
 });
 
 //закрытие модульных окон по нажатию на крестик
 popupImageClose.addEventListener('click', function() {
-  popupClose(popupImage);
+  closePopup(popupImage);
 });
 
 popupEditClose.addEventListener('click', function() {
-  popupClose(popupEdit)
+  closePopup(popupEdit)
 });
 
 popupAddClose.addEventListener('click', function() {
-  popupClose(popupAdd);
+  closePopup(popupAdd);
 });
 
 
 //открытие модального окна "редактирования профиля" и "добавление card"
 buttonEdit.addEventListener('click', function() {
-  popupOpen(popupEdit);
+  openPopup(popupEdit);
 });
 
 buttonAdd.addEventListener('click', function() {
-  popupOpen(popupAdd);
+  openPopup(popupAdd);
 });
 
 
 //закрытие всех попупов по нажатию на оверлей или escape
-popupCloseKeydownAndOverlay()
+closePopupOverlayAll()
 
 
 //работа форм после сохранения
