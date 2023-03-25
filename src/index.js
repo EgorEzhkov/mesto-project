@@ -12,9 +12,12 @@ import {openPopupImage,
   handleFormSubmit,
   handleFormSubmitAdd,
   closePopupOverlayAll,
-  closeByEscape
+  inputName,
+  inputProfession,
+  profileName,
+  profileProfession,
 } from './components/modal.js';
-import { enableValidation } from './components/validate.js';
+import { enableValidation, settings} from './components/validate.js';
 
 const buttonEdit = document.querySelector('.profile__edit-button');
 const buttonAdd = document.querySelector('.profile__add-button');
@@ -77,6 +80,8 @@ popupAddClose.addEventListener('click', function() {
 //открытие модального окна "редактирования профиля" и "добавление card"
 buttonEdit.addEventListener('click', function() {
   openPopup(popupEdit);
+  inputName.value = profileName.textContent;
+  inputProfession.value = profileProfession.textContent;
 });
 
 buttonAdd.addEventListener('click', function() {
@@ -94,4 +99,4 @@ popupFormAdd.addEventListener('submit', handleFormSubmitAdd);
 
 
 //включение валидации для всех форм
-enableValidation()
+enableValidation(settings)
