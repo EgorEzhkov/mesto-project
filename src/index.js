@@ -17,7 +17,7 @@ import {openPopupImage,
   profileName,
   profileProfession,
 } from './components/modal.js';
-import { enableValidation, settings} from './components/validate.js';
+import {enableValidation} from './components/validate.js';
 
 const buttonEdit = document.querySelector('.profile__edit-button');
 const buttonAdd = document.querySelector('.profile__add-button');
@@ -99,4 +99,13 @@ popupFormAdd.addEventListener('submit', handleFormSubmitAdd);
 
 
 //включение валидации для всех форм
+export const settings = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit',
+  inactiveButtonClass: 'popup__submit_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input_error-active',
+}
+
 enableValidation(settings)
