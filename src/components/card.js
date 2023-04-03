@@ -1,43 +1,26 @@
-export const cards = document.querySelector('.cards')
-export const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-const cardTemplate = document.querySelector('#card').content;
+import { addCard } from "./api.js";
 
-export function createCard(text, image) {
+export const cards = document.querySelector('.cards')
+export let likes = 0
+const cardTemplate = document.querySelector('#card').content;
+export const card = document.querySelector('.cards__card')
+
+export function createCard(text, image, likes, idCard, trashRemove) {
   const cardElement = cardTemplate.querySelector('.cards__card').cloneNode(true);
   const cardImage = cardElement.querySelector('.cards__image');
   cardImage.src = image;
   cardImage.alt = text;
+  cardElement.querySelector('.cards__like-counter').textContent = likes
   cardElement.querySelector('.cards__name').textContent = text;
+  cardElement.querySelector('.cards__id').textContent = idCard;
+  if (trashRemove) {
+    cardElement.querySelector('.cards__trash').remove()
+  }
   return cardElement;
 };
 
-export function initialCardsAdd(name, link) {
-  cards.prepend(createCard(name, link))
+export function initialCardsAdd(name, link, likes, idCard, trashRemove) {
+  cards.prepend(createCard(name, link, likes, idCard, trashRemove))
 };
 
 

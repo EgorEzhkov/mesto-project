@@ -1,4 +1,6 @@
-import { initialCardsAdd } from "./card.js";
+import { initialCardsAdd, likes } from "./card.js";
+import { editProfileInfo, addCard, editProfileAvatar } from "./api.js";
+import { renderLoading } from "./utils.js";
 const captionImage = document.querySelector('.popup__caption');
 const inputNameMesto = document.getElementById('mesto');
 const inputLinkMesto = document.getElementById('link')
@@ -16,7 +18,14 @@ export const popupEditClose = document.getElementById('edit_popup_close');
 export const popupAdd = document.getElementById('add_popup');
 export const popupEdit = document.getElementById('edit_popup');
 export const popupAddClose = document.getElementById('add_popup_close');
-
+export const popupEditAvatar = document.getElementById('avatar_popup');
+export const popupAvatarClose = document.getElementById('avatar_popup_close');
+const avatarLink = document.getElementById('avatarLink');
+const avatar = document.querySelector('.profile__avatar');
+export const buttonSubmitEdit = document.querySelector('.popup__submit');
+export const buttonSubmitAvatar = document.getElementById('popup__submit_avatar')
+export const buttonSubmitAdd = document.getElementById('popup__submit_add')
+export const popup = document.querySelector('.popup')
 
 export function openPopup(popup) {
   popup.classList.add('popup_opened');
@@ -57,6 +66,11 @@ export function handleFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = inputName.value;
   profileProfession.textContent = inputProfession.value;
+  editProfileInfo(inputName.value, inputProfession.value)
+  .catch((err) => {console.log(err)})
+  .finally(() => {
+    renderLoading(false, 'Сохранение...', 'Сохранить', buttonSubmitEdit)
+  })
   closePopup(popupEdit);
 };
 
@@ -65,13 +79,28 @@ export function handleFormSubmitAdd(evt) {
   evt.preventDefault();
   inputMesto.textContent = inputNameMesto.value;
   inputLink.src = inputLinkMesto.value;
-  initialCardsAdd(inputMesto.textContent, inputLink.src);
-	closePopup(popupAdd);
+  initialCardsAdd(inputMesto.textContent, inputLink.src, likes);
   evt.target.reset();
   popupSubmitAdd.classList.add('popup__submit_disabled');
   popupSubmitAdd.disabled = true;
+  addCard(inputMesto.textContent, inputLink.src)
+  .catch((err) => {console.log(err)})
+  .finally(() => {
+    renderLoading(false, 'Создание...', 'Создать', buttonSubmitAdd)
+  });
+  closePopup(popupAdd);
 };
 
+export function handleFormSubmitEditAvatar(evt) {
+  evt.preventDefault();
+  avatar.src = avatarLink.value
+  editProfileAvatar(avatarLink.value)
+  .catch((err) => {console.log(err)})
+  .finally(() => {
+    renderLoading(false, 'Сохранение...', 'Сохранить', buttonSubmitAvatar)
+  })
+  closePopup(popupEditAvatar)
+}
 
 export const closePopupOverlayAll = () => {
   const popupList = Array.from(document.querySelectorAll('.popup'))
@@ -79,6 +108,8 @@ export const closePopupOverlayAll = () => {
     closePopupOverlay(popup);
   });
 };
+
+
 
 
 

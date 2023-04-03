@@ -1,0 +1,29 @@
+.profile__avatar-edit {
+  display: inline-block;
+  cursor: default;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  margin: 40px 30px 50px 0;
+}
+
+.profile__avatar-edit:hover .profile__avatar {
+  opacity: 0.2;
+  cursor: pointer;
+}
+
+.profile__avatar-edit:hover {
+  background: url(../../../images/icons8-редактировать.svg);
+  background-repeat: no-repeat;
+  background-position: 50px;
+  background-size: 26px 26px;
+}
+
+@media screen and (max-width: 767px) {
+  .profile__avatar-edit {
+    margin-top: 40px;
+    margin-right: 0;
+    margin-bottom: 0;
+  }
+}
