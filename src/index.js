@@ -74,8 +74,6 @@ getProfileInfo()
   console.log(err)
 });
 
-popupFormAdd.addEventListener('submit', handleFormSubmitAdd);
-
 // Загрузка карточек с сервера
 getCardsForServer()
 .then((res) => {
@@ -106,8 +104,8 @@ getCardsForServer()
 
 //делегирование cards(лайк, удаление card, открытие модального окна, работа api)
 cards.addEventListener('click', (evt) => {
-    const cardsId = evt.target.closest('.cards__card').querySelector('.cards__id')
-    const likeCounter = evt.target.closest('.cards__card').querySelector('.cards__like-counter')
+  const cardsId = evt.target.closest('.cards__card').querySelector('.cards__id')
+  const likeCounter = evt.target.closest('.cards__card').querySelector('.cards__like-counter')
   if ((evt.target.classList.contains('cards__like')) && (!evt.target.classList.contains('cards__like_active'))) {
     addLike(cardsId.textContent)
     .then((res) => {
@@ -196,7 +194,7 @@ closePopupOverlayAll()
 
 //работа форм после сохранения
 formElement.addEventListener('submit', handleFormSubmit);
-
+popupFormAdd.addEventListener('submit', handleFormSubmitAdd);
 popupFormAvatar.addEventListener('submit', handleFormSubmitEditAvatar)
 
 
