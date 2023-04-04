@@ -1,5 +1,3 @@
-import { addCard } from "./api.js";
-
 export const cards = document.querySelector('.cards')
 export let likes = 0
 const cardTemplate = document.querySelector('#card').content;

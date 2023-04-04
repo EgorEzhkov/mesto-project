@@ -60,6 +60,12 @@ export const allImages = [
 // Загрузка информации о пользователе с сервера
 getProfileInfo()
 .then((res) => {
+  if (res.ok) {
+    return res.json()
+  }
+  return Promise.reject(`Ошибка: ${res.status}`)
+})
+.then((res) => {
   profileName.textContent = res.name;
   profileProfession.textContent = res.about;
   profileAvatar.src = res.avatar;
@@ -68,8 +74,16 @@ getProfileInfo()
   console.log(err)
 });
 
+popupFormAdd.addEventListener('submit', handleFormSubmitAdd);
+
 // Загрузка карточек с сервера
 getCardsForServer()
+.then((res) => {
+  if (res.ok) {
+    return res.json()
+  }
+  return Promise.reject(`Ошибка: ${res.status}`)
+})
 .then((res) => {
   res.forEach(element => {
     if ((element.owner.name === profileName.textContent) && (element.owner.about === profileProfession.textContent)) {
@@ -97,7 +111,10 @@ cards.addEventListener('click', (evt) => {
   if ((evt.target.classList.contains('cards__like')) && (!evt.target.classList.contains('cards__like_active'))) {
     addLike(cardsId.textContent)
     .then((res) => {
-      return res.json()
+      if (res.ok) {
+        return res.json()
+      }
+      return Promise.reject(`Ошибка: ${res.status}`)
     })
     .then((data) => {
       likeCounter.innerHTML = data.likes.length
@@ -107,7 +124,10 @@ cards.addEventListener('click', (evt) => {
   } else if (evt.target.classList.contains('cards__like_active')) {
     deleteLike(cardsId.textContent)
     .then((res) => {
-      return res.json()
+      if (res.ok) {
+        return res.json()
+      }
+      return Promise.reject(`Ошибка: ${res.status}`)
     })
     .then((data) => {
       likeCounter.innerHTML = data.likes.length
@@ -117,8 +137,16 @@ cards.addEventListener('click', (evt) => {
   };
   if (evt.target.classList.contains('cards__trash')) {
     deleteCard(evt.target.closest('.cards__card').querySelector('.cards__id').textContent)
+    .then((res) => {
+      if (res.ok) {
+        return res
+      }
+      return Promise.reject(`Ошибка: ${res.status}`)
+    })
+    .then(() => {
+      evt.target.closest('.cards__card').remove()
+    })
     .catch((err) => {console.log(err)})
-    evt.target.closest('.cards__card').remove()
   };
   if (evt.target.classList.contains('cards__image')) {
     openPopupImage(evt.target.alt, evt.target.src)
@@ -168,7 +196,7 @@ closePopupOverlayAll()
 
 //работа форм после сохранения
 formElement.addEventListener('submit', handleFormSubmit);
-popupFormAdd.addEventListener('submit', handleFormSubmitAdd);
+
 popupFormAvatar.addEventListener('submit', handleFormSubmitEditAvatar)
 
 

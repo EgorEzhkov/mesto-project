@@ -1,5 +1,5 @@
 import { initialCardsAdd, likes } from "./card.js";
-import { editProfileInfo, addCard, editProfileAvatar } from "./api.js";
+import { editProfileInfo, addCard, editProfileAvatar, trashRemove } from "./api.js";
 import { renderLoading } from "./utils.js";
 const captionImage = document.querySelector('.popup__caption');
 const inputNameMesto = document.getElementById('mesto');
@@ -26,6 +26,7 @@ export const buttonSubmitEdit = document.querySelector('.popup__submit');
 export const buttonSubmitAvatar = document.getElementById('popup__submit_avatar')
 export const buttonSubmitAdd = document.getElementById('popup__submit_add')
 export const popup = document.querySelector('.popup')
+const popupSubmitAvatar = document.getElementById('popup__submit_avatar')
 
 export function openPopup(popup) {
   popup.classList.add('popup_opened');
@@ -64,14 +65,23 @@ export const closePopupOverlay = (popup) => {
 
 export function handleFormSubmit(evt) {
   evt.preventDefault();
-  profileName.textContent = inputName.value;
-  profileProfession.textContent = inputProfession.value;
   editProfileInfo(inputName.value, inputProfession.value)
+  .then((res) => {
+    if (res.ok) {
+      return res.json()
+    }
+    return Promise.reject(`Ошибка: ${res.status}`)
+  })
+  .then(() => {
+    profileName.textContent = inputName.value;
+    profileProfession.textContent = inputProfession.value;
+    closePopup(popupEdit);
+  })
   .catch((err) => {console.log(err)})
   .finally(() => {
     renderLoading(false, 'Сохранение...', 'Сохранить', buttonSubmitEdit)
   })
-  closePopup(popupEdit);
+
 };
 
 
@@ -79,28 +89,48 @@ export function handleFormSubmitAdd(evt) {
   evt.preventDefault();
   inputMesto.textContent = inputNameMesto.value;
   inputLink.src = inputLinkMesto.value;
-  initialCardsAdd(inputMesto.textContent, inputLink.src, likes);
-  evt.target.reset();
-  popupSubmitAdd.classList.add('popup__submit_disabled');
-  popupSubmitAdd.disabled = true;
   addCard(inputMesto.textContent, inputLink.src)
+  .then((res) => {
+    if (res.ok) {
+      return res.json()
+    }
+    return Promise.reject(`Ошибка: ${res.status}`)
+  })
+  .then((res) => {
+    initialCardsAdd(inputMesto.textContent, inputLink.src, likes, res._id);
+    closePopup(popupAdd);
+    evt.target.reset();
+    popupSubmitAdd.classList.add('popup__submit_disabled');
+    popupSubmitAdd.disabled = true;
+  })
   .catch((err) => {console.log(err)})
   .finally(() => {
     renderLoading(false, 'Создание...', 'Создать', buttonSubmitAdd)
   });
-  closePopup(popupAdd);
+
 };
 
 export function handleFormSubmitEditAvatar(evt) {
   evt.preventDefault();
-  avatar.src = avatarLink.value
   editProfileAvatar(avatarLink.value)
+  .then((res) => {
+    if (res.ok) {
+      return res
+    }
+    return Promise.reject(`Ошибка: ${res.status}`)
+  })
+  .then(() => {
+    avatar.src = avatarLink.value
+    evt.target.reset()
+    popupSubmitAvatar.classList.add('popup__submit_disabled')
+    popupSubmitAdd.disabled = true
+    closePopup(popupEditAvatar)
+  })
   .catch((err) => {console.log(err)})
   .finally(() => {
     renderLoading(false, 'Сохранение...', 'Сохранить', buttonSubmitAvatar)
-  })
-  closePopup(popupEditAvatar)
-}
+  });
+};
 
 export const closePopupOverlayAll = () => {
   const popupList = Array.from(document.querySelectorAll('.popup'))

@@ -14,39 +14,20 @@ const config = {
   }
 };
 
-// универсальный запрос
-async function api(uri, data, method = 'GET') {
-  let options = {
-    method,
-    headers: {
-      authorization: token
-    }
-  };
-
-  if (data) {
-    options = {
-      method: (method === 'GET') ? 'POST' : method,
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    };
-  }
-  const response = await fetch(config.server + uri, options);
-  const result = await response.json();
-  return result;
-};
-
-
-// Загрузка данных профиля с сервера
 export function getProfileInfo() {
-  return api('users/me')
-}
+  return fetch(config.server + 'users/me', {
+    method: 'GET',
+    headers: config.headers
+  })
+};
 
 // Загрузка карточек с сервера
 export function getCardsForServer() {
-  return api('cards')
-}
+  return fetch(config.server + 'cards', {
+    method: 'GET',
+    headers: config.headers
+  })
+};
 
 
 // Редактирование профиля
@@ -72,7 +53,7 @@ export function editProfileAvatar(link) {
       avatar: link
     })
   })
-}
+};
 
 // Добавление карточки на сервер
 export function addCard(name, link) {
@@ -110,4 +91,3 @@ export function deleteLike(id) {
     headers: config.headers
   })
 };
-
