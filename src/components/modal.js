@@ -1,5 +1,5 @@
-import { cards, createCard, likes } from "./card.js";
-import { editProfileInfo, addCard, editProfileAvatar, trashRemove } from "./api.js";
+import { cards, createCard } from "./card.js";
+import { editProfileInfo, addCard, editProfileAvatar } from "./api.js";
 import { renderLoading } from "./utils.js";
 const captionImage = document.querySelector('.popup__caption');
 const inputNameMesto = document.getElementById('mesto');
