@@ -1,5 +1,5 @@
 import './styles/index.css'
-import {cards, initialCardsAdd} from './components/card.js';
+import {cards, createCard} from './components/card.js';
 import {openPopupImage,
   popupImageClose,
   popupEditClose,
@@ -9,7 +9,7 @@ import {openPopupImage,
   popupImage,
   popupEdit,
   popupAdd,
-  handleFormSubmit,
+  handleProfileFormSubmit,
   handleFormSubmitAdd,
   closePopupOverlayAll,
   inputName,
@@ -27,14 +27,13 @@ import {
   deleteCard,
   addLike,
   deleteLike,
-  myId,
-  trashRemove
 } from './components/api.js';
 
+let userId;
 const buttonEdit = document.querySelector('.profile__edit-button');
 const buttonAdd = document.querySelector('.profile__add-button');
 const buttonEditAvatar = document.querySelector('.profile__avatar')
-const formElement = document.querySelector('.popup__form');
+const profileForm  = document.querySelector('.popup__form');
 const popupFormAdd = document.getElementById('popup__form_add');
 const popupFormAvatar = document.getElementById('avatar_popup')
 export const profileAvatar = document.querySelector('.profile__avatar')
@@ -57,43 +56,16 @@ export const allImages = [
   }
 ];
 
-// Загрузка информации о пользователе с сервера
-getProfileInfo()
-.then((res) => {
-  if (res.ok) {
-    return res.json()
-  }
-  return Promise.reject(`Ошибка: ${res.status}`)
-})
-.then((res) => {
-  profileName.textContent = res.name;
-  profileProfession.textContent = res.about;
-  profileAvatar.src = res.avatar;
-})
-.catch((err) => {
-  console.log(err)
-});
 
-// Загрузка карточек с сервера
-getCardsForServer()
-.then((res) => {
-  if (res.ok) {
-    return res.json()
-  }
-  return Promise.reject(`Ошибка: ${res.status}`)
-})
-.then((res) => {
+
+Promise.all([getProfileInfo(), getCardsForServer()])
+.then(([userData, res]) => {
+  profileName.textContent = userData.name;
+  profileProfession.textContent = userData.about;
+  profileAvatar.src = userData.avatar;
+  userId = userData._id
   res.forEach(element => {
-    if ((element.owner.name === profileName.textContent) && (element.owner.about === profileProfession.textContent)) {
-      initialCardsAdd(element.name, element.link, element.likes.length, element._id)
-    } else {
-      initialCardsAdd(element.name, element.link, element.likes.length, element._id, trashRemove)
-    }
-    if (element.likes.map((item) => item._id).includes(myId)) {
-      document.querySelector('.cards__like').classList.add('cards__like_active')
-    } else {
-      document.querySelector('.cards__like').classList.remove('cards__like_active')
-    }
+    cards.append(createCard(element, userId))
   })
 })
 .catch((err) => {
@@ -101,55 +73,6 @@ getCardsForServer()
 });
 
 
-
-//делегирование cards(лайк, удаление card, открытие модального окна, работа api)
-cards.addEventListener('click', (evt) => {
-  const cardsId = evt.target.closest('.cards__card').querySelector('.cards__id')
-  const likeCounter = evt.target.closest('.cards__card').querySelector('.cards__like-counter')
-  if ((evt.target.classList.contains('cards__like')) && (!evt.target.classList.contains('cards__like_active'))) {
-    addLike(cardsId.textContent)
-    .then((res) => {
-      if (res.ok) {
-        return res.json()
-      }
-      return Promise.reject(`Ошибка: ${res.status}`)
-    })
-    .then((data) => {
-      likeCounter.innerHTML = data.likes.length
-    })
-    .catch((err) => {console.log(err)});
-    evt.target.classList.add('cards__like_active')
-  } else if (evt.target.classList.contains('cards__like_active')) {
-    deleteLike(cardsId.textContent)
-    .then((res) => {
-      if (res.ok) {
-        return res.json()
-      }
-      return Promise.reject(`Ошибка: ${res.status}`)
-    })
-    .then((data) => {
-      likeCounter.innerHTML = data.likes.length
-    })
-    .catch((err) => {console.log(err)});
-    evt.target.classList.remove('cards__like_active')
-  };
-  if (evt.target.classList.contains('cards__trash')) {
-    deleteCard(evt.target.closest('.cards__card').querySelector('.cards__id').textContent)
-    .then((res) => {
-      if (res.ok) {
-        return res
-      }
-      return Promise.reject(`Ошибка: ${res.status}`)
-    })
-    .then(() => {
-      evt.target.closest('.cards__card').remove()
-    })
-    .catch((err) => {console.log(err)})
-  };
-  if (evt.target.classList.contains('cards__image')) {
-    openPopupImage(evt.target.alt, evt.target.src)
-  }
-});
 
 
 
@@ -193,7 +116,7 @@ closePopupOverlayAll()
 
 
 //работа форм после сохранения
-formElement.addEventListener('submit', handleFormSubmit);
+profileForm.addEventListener('submit', handleProfileFormSubmit);
 popupFormAdd.addEventListener('submit', handleFormSubmitAdd);
 popupFormAvatar.addEventListener('submit', handleFormSubmitEditAvatar)
 

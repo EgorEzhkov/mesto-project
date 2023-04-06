@@ -1,10 +1,6 @@
-import { buttonSubmitAdd, buttonSubmitAvatar, buttonSubmitEdit, profileName, profileProfession } from "./modal.js";
-import { renderLoading } from "./utils.js";
-
+import { checkResponse } from "./utils.js";
 const token = 'd49dae7b-52fd-4787-ad1c-63454d12ebd1'
-export const like = document.querySelector('.cards__like-counter')
 export const trashRemove = true;
-export const myId = 'e871dc8690cbbaff627df173'
 
 const config = {
   server: 'https://nomoreparties.co/v1/plus-cohort-22/',
@@ -19,6 +15,7 @@ export function getProfileInfo() {
     method: 'GET',
     headers: config.headers
   })
+  .then(checkResponse)
 };
 
 // Загрузка карточек с сервера
@@ -27,12 +24,12 @@ export function getCardsForServer() {
     method: 'GET',
     headers: config.headers
   })
+  .then(checkResponse)
 };
 
 
 // Редактирование профиля
 export function editProfileInfo(name, about) {
-  renderLoading(true, 'Сохранение...', 'Сохранить', buttonSubmitEdit)
   return fetch(config.server + 'users/me', {
     method: 'PATCH',
     headers: config.headers,
@@ -41,11 +38,11 @@ export function editProfileInfo(name, about) {
       about: about
     })
   })
+  .then(checkResponse)
 };
 
 // Изменение аватарки
 export function editProfileAvatar(link) {
-  renderLoading(true, 'Сохранение...', 'Сохранить', buttonSubmitAvatar)
   return fetch(config.server + 'users/me/avatar', {
     method: 'PATCH',
     headers: config.headers,
@@ -53,11 +50,11 @@ export function editProfileAvatar(link) {
       avatar: link
     })
   })
+  .then(checkResponse)
 };
 
 // Добавление карточки на сервер
 export function addCard(name, link) {
-  renderLoading(true, 'Создание...', 'Создать', buttonSubmitAdd)
   return fetch(config.server + 'cards', {
     method: 'POST',
     headers: config.headers,
@@ -66,6 +63,7 @@ export function addCard(name, link) {
       link: link
     })
   })
+  .then(checkResponse)
 };
 
 // Удаление карточки
@@ -74,6 +72,7 @@ export function deleteCard(id) {
     method: 'DELETE',
     headers: config.headers
   })
+  .then(checkResponse)
 }
 
 export function addLike(id) {
@@ -81,6 +80,7 @@ export function addLike(id) {
     method: 'PUT',
     headers: config.headers
   })
+  .then(checkResponse)
 }
 
 
@@ -90,4 +90,5 @@ export function deleteLike(id) {
     method: 'DELETE',
     headers: config.headers
   })
+  .then(checkResponse)
 };

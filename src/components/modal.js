@@ -1,4 +1,4 @@
-import { initialCardsAdd, likes } from "./card.js";
+import { cards, createCard, likes } from "./card.js";
 import { editProfileInfo, addCard, editProfileAvatar, trashRemove } from "./api.js";
 import { renderLoading } from "./utils.js";
 const captionImage = document.querySelector('.popup__caption');
@@ -63,15 +63,10 @@ export const closePopupOverlay = (popup) => {
 };
 
 
-export function handleFormSubmit(evt) {
+export function handleProfileFormSubmit(evt) {
   evt.preventDefault();
+  renderLoading(true, 'Сохранение...', 'Сохранить', buttonSubmitEdit)
   editProfileInfo(inputName.value, inputProfession.value)
-  .then((res) => {
-    if (res.ok) {
-      return res.json()
-    }
-    return Promise.reject(`Ошибка: ${res.status}`)
-  })
   .then(() => {
     profileName.textContent = inputName.value;
     profileProfession.textContent = inputProfession.value;
@@ -89,15 +84,10 @@ export function handleFormSubmitAdd(evt) {
   evt.preventDefault();
   inputMesto.textContent = inputNameMesto.value;
   inputLink.src = inputLinkMesto.value;
+  renderLoading(true, 'Создание...', 'Создать', buttonSubmitAdd)
   addCard(inputMesto.textContent, inputLink.src)
   .then((res) => {
-    if (res.ok) {
-      return res.json()
-    }
-    return Promise.reject(`Ошибка: ${res.status}`)
-  })
-  .then((res) => {
-    initialCardsAdd(inputMesto.textContent, inputLink.src, likes, res._id);
+    cards.prepend(createCard(res, res.owner._id));
     closePopup(popupAdd);
     evt.target.reset();
     popupSubmitAdd.classList.add('popup__submit_disabled');
@@ -112,13 +102,8 @@ export function handleFormSubmitAdd(evt) {
 
 export function handleFormSubmitEditAvatar(evt) {
   evt.preventDefault();
+  renderLoading(true, 'Сохранение...', 'Сохранить', buttonSubmitAvatar)
   editProfileAvatar(avatarLink.value)
-  .then((res) => {
-    if (res.ok) {
-      return res
-    }
-    return Promise.reject(`Ошибка: ${res.status}`)
-  })
   .then(() => {
     avatar.src = avatarLink.value
     evt.target.reset()
