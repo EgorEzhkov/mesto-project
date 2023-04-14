@@ -15,26 +15,26 @@ class Api {
     this.checkResponse = checkResponse;
   }
 
-  request(server, settings) {
+  _request(server, settings) {
     return fetch(server, settings).then(this.checkResponse);
   }
 
   getProfileInfo() {
-    this.request(this.server + 'users/me', {
+    this._request(this.server + 'users/me', {
       method: 'GET',
       headers: this.headers
     });
   }
 
   getCardsForServer() {
-    this.request(this.server + 'cards', {
+    this._request(this.server + 'cards', {
       method: 'GET',
       headers: this.headers
     });
   }
 
   editProfileInfo(name, about) {
-    this.request(this.server + 'users/me', {
+    this._request(this.server + 'users/me', {
       method: 'PATCH',
       headers: this.headers,
       body: JSON.stringify({
@@ -45,7 +45,7 @@ class Api {
   }
 
   editProfileAvatar(link) {
-    this.request(this.server + 'users/me/avatar', {
+    this._request(this.server + 'users/me/avatar', {
       method: 'PATCH',
       headers: this.headers,
       body: JSON.stringify({
@@ -55,7 +55,7 @@ class Api {
   }
 
   addCard(name, link) {
-    this.request(this.server + 'cards', {
+    this._request(this.server + 'cards', {
       method: 'POST',
       headers: this.headers,
       body: JSON.stringify({
@@ -66,21 +66,21 @@ class Api {
   }
 
   deleteCard(id) {
-    this.request(this.server + 'cards/' + `${id}`, {
+    this._request(this.server + 'cards/' + `${id}`, {
       method: 'DELETE',
       headers: this.headers
     });
   }
 
   addLike(id) {
-    this.request(this.server + 'cards/likes/' + `${id}`, {
+    this._request(this.server + 'cards/likes/' + `${id}`, {
       method: 'PUT',
       headers: this.headers
     });
   }
 
   deleteLike(id) {
-    this.request(this.server + 'cards/likes/' + `${id}`, {
+    this._request(this.server + 'cards/likes/' + `${id}`, {
       method: 'DELETE',
       headers: this.headers
     });
