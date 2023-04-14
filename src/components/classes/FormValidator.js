@@ -46,20 +46,20 @@ class FormValidator {
         input.setCustomValidity("");
     }
     if (!input.validity.valid) {
-      showInputError(input, input.validationMessage);
+      this._showInputError(input, input.validationMessage);
     } else {
-      hideInputError(input);
+      this._hideInputError(input);
     };
   }
 
   _setEventListeners() {
     const inputList = Array.from(this.formElement.querySelectorAll(this.inputSelector));
     const buttonElement = this.formElement.querySelector(this.submitButtonSelector);
-    toggleButtonState(inputList, buttonElement);
+    this._toggleButtonState(inputList, buttonElement);
     inputList.forEach((input) => {
       input.addEventListener('input', () => {
-        checkInputValidity(input);
-        toggleButtonState(inputList, buttonElement);
+        this._checkInputValidity(input);
+        this._toggleButtonState(inputList, buttonElement);
       });
     });
   }
@@ -68,7 +68,7 @@ class FormValidator {
     this.formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
     });
-    setEventListeners();
+    this._setEventListeners();
   }
 }
 
