@@ -1,6 +1,6 @@
 import './styles/index.css'
 import {cards, createCard} from './components/card.js';
-import {openPopupImage,
+import {
   popupImageClose,
   popupEditClose,
   popupAddClose,
@@ -23,10 +23,7 @@ import {openPopupImage,
 import {enableValidation, settings} from './components/validate.js';
 import {
   getProfileInfo,
-  getCardsForServer,
-  deleteCard,
-  addLike,
-  deleteLike,
+  getCardsForServer
 } from './components/api.js';
 
 let userId;
@@ -74,8 +71,6 @@ Promise.all([getProfileInfo(), getCardsForServer()])
 
 
 
-
-
 //закрытие модульных окон по нажатию на крестик
 popupImageClose.addEventListener('click', function() {
   closePopup(popupImage);
@@ -86,12 +81,16 @@ popupEditClose.addEventListener('click', function() {
 });
 
 popupAddClose.addEventListener('click', function() {
-  closePopup(popupAdd);
+  closePopup(popupAdd)
 });
+
 
 popupAvatarClose.addEventListener('click', function() {
   closePopup(popupEditAvatar)
 });
+
+
+
 
 
 //открытие модального окна "редактирования профиля" и "добавление card"
@@ -102,8 +101,9 @@ buttonEdit.addEventListener('click', function() {
 });
 
 buttonAdd.addEventListener('click', function() {
-  openPopup(popupAdd);
+  openPopup(popupAdd)
 });
+
 
 buttonEditAvatar.addEventListener('click', function() {
   openPopup(popupEditAvatar)
@@ -114,7 +114,6 @@ buttonEditAvatar.addEventListener('click', function() {
 closePopupOverlayAll()
 
 
-
 //работа форм после сохранения
 profileForm.addEventListener('submit', handleProfileFormSubmit);
 popupFormAdd.addEventListener('submit', handleFormSubmitAdd);
@@ -123,4 +122,7 @@ popupFormAvatar.addEventListener('submit', handleFormSubmitEditAvatar)
 
 //включение валидации для всех форм
 enableValidation(settings)
+
+
+
 
