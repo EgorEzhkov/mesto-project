@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mesto</title>
     <!-- Этот link убирает ошибку Failed to load resource: the server responded with a status of 404 (Not Found) :5500/favicon.ico -->
     <link rel="shortcut icon" href="#">
@@ -14,7 +14,7 @@
             src="<%=require('./images/logo.svg')%>"
             alt="Логотип страницы"
             class="header__logo"
-          />
+          >
       </header>
       <main>
         <section class="profile">
@@ -23,7 +23,7 @@
             class="profile__avatar"
             src=""
             alt="Фотография профиля"
-            />
+            >
           </a>
           <div class="profile__info">
             <div class="profile__name-and-edit-button">
@@ -42,7 +42,7 @@
                   src=""
                   alt=""
                   class="cards__image"
-                />
+                >
                 <img src="<%=require('./images/Trash.svg')%>" alt="" class="cards__trash">
                 <h2 class="cards__name"></h2>
                 <p class='cards__id'></p>
@@ -74,7 +74,7 @@
             maxlength="40"
             pattern="[A-Za-zА-Яа-яёЁ\s\-]{1,}"
             data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
-            />
+            >
             <span class="name-error"></span>
           </label>
           <label class="popup__label">
@@ -87,7 +87,7 @@
             maxlength="200"
             pattern="[A-Za-zА-Яа-яёЁ\s\-]{1,}"
             data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
-            />
+            >
             <span class="profession-error"></span>
           </label>
           <button type="submit" class="popup__submit" disabled>Сохранить</button>
@@ -112,7 +112,7 @@
             maxlength="30"
             pattern="[A-Za-zА-Яа-яёЁ\s\-]{1,}"
             data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
-            />
+            >
             <span class="mesto-error"></span>
           </label>
           <label class="popup__label">
@@ -124,7 +124,7 @@
             class="popup__input"
             value=""
             required
-            />
+            >
             <span class="link-error"></span>
           </label>
           <button type="submit" class="popup__submit" id="popup__submit_add" disabled>Создать</button>
