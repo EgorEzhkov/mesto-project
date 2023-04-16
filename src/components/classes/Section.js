@@ -12,7 +12,7 @@ class Section {
     });
   }
 
-  addItem(card) {
-    this._render(card);
+  addItem(element) {
+    this.containerSelector.append(element);
   }
 }
