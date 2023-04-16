@@ -5,9 +5,15 @@ export default class Popup {
   }
   open() {
     this.popup.classList.add('popup_opened');
+    document.addEventListener('keydown', (evt) => {
+      this._handleEscClose(evt)
+    });
   }
   close() {
     this.popup.classList.remove('popup_opened');
+    document.removeEventListener('keydown', (evt) => {
+      this._handleEscClose(evt)
+    });
   }
 
   _handleEscClose(evt) {
@@ -26,11 +32,7 @@ export default class Popup {
         this.close();
       }
     })
-    document.addEventListener('keydown', (evt) => {
-      if (this.popup.classList.contains('popup_opened')) {
-        this._handleEscClose(evt);
-      }
-    })
+
   }
 }
 

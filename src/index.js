@@ -70,7 +70,6 @@ Promise.all([getProfileInfo(), getCardsForServer()])
 });
 
 
-
 //закрытие модульных окон по нажатию на крестик
 popupImageClose.addEventListener('click', function() {
   closePopup(popupImage);
