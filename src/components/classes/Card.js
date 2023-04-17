@@ -1,6 +1,6 @@
 // Карточка принимает данные из Api о карточке и передаёт темплейт html формы карточки
 
-class Card {
+export default class Card {
   constructor({cardData, putLike, deleteLike, deleteCard}, userId, handleCardClick, selectorTemplate) {
     this.cardLink = cardData.link;
     this.cardName = cardData.name;
