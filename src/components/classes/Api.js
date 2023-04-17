@@ -1,40 +1,38 @@
 export const trashRemove = true;
 
-const config = {
-  server: 'https://nomoreparties.co/v1/plus-cohort-22/',
-  headers: {
-    authorization: 'd49dae7b-52fd-4787-ad1c-63454d12ebd1',
-    'Content-Type': 'application/json'
-  }
-};
-
-class Api {
-  constructor(config, checkResponse) {
+export default class Api {
+  constructor(config) {
     this.server = config.server;
     this.headers = config.headers;
-    this.checkResponse = checkResponse;
+  }
+
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
   }
 
   _request(server, settings) {
-    return fetch(server, settings).then(this.checkResponse);
+    return fetch(server, settings).then(this._checkResponse);
   }
 
   getProfileInfo() {
-    this._request(this.server + 'users/me', {
+    return this._request(this.server + 'users/me', {
       method: 'GET',
       headers: this.headers
     });
   }
 
   getCardsForServer() {
-    this._request(this.server + 'cards', {
+    return this._request(`${this.server}cards`, {
       method: 'GET',
       headers: this.headers
     });
   }
 
   editProfileInfo(name, about) {
-    this._request(this.server + 'users/me', {
+    return this._request(this.server + 'users/me', {
       method: 'PATCH',
       headers: this.headers,
       body: JSON.stringify({
@@ -45,7 +43,7 @@ class Api {
   }
 
   editProfileAvatar(link) {
-    this._request(this.server + 'users/me/avatar', {
+    return this._request(this.server + 'users/me/avatar', {
       method: 'PATCH',
       headers: this.headers,
       body: JSON.stringify({
@@ -55,7 +53,7 @@ class Api {
   }
 
   addCard(name, link) {
-    this._request(this.server + 'cards', {
+    return this._request(this.server + 'cards', {
       method: 'POST',
       headers: this.headers,
       body: JSON.stringify({
@@ -66,21 +64,21 @@ class Api {
   }
 
   deleteCard(id) {
-    this._request(this.server + 'cards/' + `${id}`, {
+    return this._request(this.server + 'cards/' + `${id}`, {
       method: 'DELETE',
       headers: this.headers
     });
   }
 
   addLike(id) {
-    this._request(this.server + 'cards/likes/' + `${id}`, {
+    return this._request(this.server + 'cards/likes/' + `${id}`, {
       method: 'PUT',
       headers: this.headers
     });
   }
 
   deleteLike(id) {
-    this._request(this.server + 'cards/likes/' + `${id}`, {
+    return this._request(this.server + 'cards/likes/' + `${id}`, {
       method: 'DELETE',
       headers: this.headers
     });

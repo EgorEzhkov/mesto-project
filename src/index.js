@@ -1,5 +1,26 @@
-import './styles/index.css'
-import {cards, createCard} from './components/card.js';
+import './styles/index.css';
+
+import Api from './components/classes/Api.js';
+import Card from './components/classes/Card.js';
+import Section from './components/classes/Section.js';
+
+const config = {
+  server: 'https://nomoreparties.co/v1/plus-cohort-22/',
+  headers: {
+    authorization: 'd49dae7b-52fd-4787-ad1c-63454d12ebd1',
+    'Content-Type': 'application/json'
+  }
+};
+
+const api = new Api(config);
+
+console.log(api.getCardsForServer());
+
+
+api.getCardsForServer().then((data) => {
+  console.log(data);
+});
+/* import {cards, createCard} from './components/card.js';
 import {
   popupImageClose,
   popupEditClose,
@@ -125,3 +146,4 @@ enableValidation(settings)
 
 
 
+ */
