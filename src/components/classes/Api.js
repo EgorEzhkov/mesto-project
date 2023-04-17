@@ -32,7 +32,7 @@ export default class Api {
   }
 
   editProfileInfo(name, about) {
-    return this._request(this.server + 'users/me', {
+    return this._request(`${this.server}users/me`, {
       method: 'PATCH',
       headers: this.headers,
       body: JSON.stringify({
@@ -43,7 +43,7 @@ export default class Api {
   }
 
   editProfileAvatar(link) {
-    return this._request(this.server + 'users/me/avatar', {
+    return this._request(`${this.server}users/me/avatar`, {
       method: 'PATCH',
       headers: this.headers,
       body: JSON.stringify({
@@ -53,7 +53,7 @@ export default class Api {
   }
 
   addCard(name, link) {
-    return this._request(this.server + 'cards', {
+    return this._request(`${this.server}cards`, {
       method: 'POST',
       headers: this.headers,
       body: JSON.stringify({
@@ -64,21 +64,21 @@ export default class Api {
   }
 
   deleteCard(id) {
-    return this._request(this.server + 'cards/' + `${id}`, {
+    return this._request(`${this.server}cards/${id}`, {
       method: 'DELETE',
       headers: this.headers
     });
   }
 
   addLike(id) {
-    return this._request(this.server + 'cards/likes/' + `${id}`, {
+    return this._request(`${this.server}cards/likes/${id}`, {
       method: 'PUT',
       headers: this.headers
     });
   }
 
   deleteLike(id) {
-    return this._request(this.server + 'cards/likes/' + `${id}`, {
+    return this._request(`${this.server}cards/likes/${id}`, {
       method: 'DELETE',
       headers: this.headers
     });
