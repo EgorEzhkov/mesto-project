@@ -18,11 +18,45 @@ const config = {
 
 const api = new Api(config);
 
-console.log(api.getCardsForServer());
-
-
+// Этот код следует поместить в Promise.all и объединить построение карточек и отображения информации от пользователя. Первый метод api.getCardsForServer() нужно поместить в массив Promise.all, после в then сделать массив с двумя данными и весь код из then перенести в then у Promise.all
 api.getCardsForServer().then((data) => {
-  console.log(data);
+  const section = new Section({
+    items: data,
+    render: (cardInfo) => {
+      const card = new Card({
+        cardData: cardInfo, 
+        addLike: (likeCounter, like) => {
+          api.addLike(cardInfo._id)
+            .then((data) => {
+              likeCounter.textContent = data.likes.length;
+              like.classList.add('cards__like_active');
+              if (!likeCounter.classList.contains('cards__like-counter_active')) {
+                likeCounter.classList.add('cards__like-counter_active');
+              }
+            })
+            .catch(card._findError)}, 
+        deleteLike: (likeCounter, like) => {
+          api.deleteLike(cardInfo._id)
+            .then((data) => {
+              likeCounter.textContent = data.likes.length;
+              like.classList.remove('cards__like_active');
+              if (data.likes.length === 0) {
+                likeCounter.classList.remove('cards__like-counter_active');
+              }
+            })
+            .catch(card._findError);
+        },
+      deleteCard: () => {
+        api.deleteCard(cardInfo._id).then(() => {
+          card.remove();
+        }).catch(card._findError)
+      }},
+        'e871dc8690cbbaff627df173', 
+        '#card');
+      section.addItem(card.generate());
+    }
+  }, '.cards');
+  section.renderItems();
 });
 /* import {cards, createCard} from './components/card.js';
 import {
