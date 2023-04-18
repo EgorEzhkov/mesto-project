@@ -1,7 +1,7 @@
 // Карточка принимает данные из Api о карточке и передаёт темплейт html формы карточки
 
 export default class Card {
-  constructor({cardData, addLike, deleteLike, deleteCard/* , handleCardClick */}, userId, selectorTemplate) {
+  constructor({cardData, addLike, deleteLike, deleteCard, handleCardClick}, userId, selectorTemplate) {
     this.cardLink = cardData.link;
     this.cardName = cardData.name;
     this.cardOwner = cardData.owner._id;
@@ -11,9 +11,7 @@ export default class Card {
     this.deleteLike = deleteLike;
     this.userId = userId;
     this.deleteCard = deleteCard;
-
-    /* this._handleCardClick = handleCardClick; */
-
+    this._handleCardClick = handleCardClick;
     this.cardTemplate = selectorTemplate;
   }
 
@@ -56,12 +54,12 @@ export default class Card {
     });
   }
 
-  /* _handleImageClick(cardImage) {
-    cardImage.addEventListener('click', this._handleCardClick());
-  } */
+  _handleImageClick(cardImage) {
+    this._handleCardClick(cardImage);
+  }
 
   _setEventListeners(cardImage, likeCounter, like, trash) {
-    /* this._handleImageClick(cardImage); */
+    this._handleImageClick(cardImage)
     this._toggleButtonLikes(likeCounter, like);
     this._checkIdOwner(trash);
   }
@@ -83,3 +81,4 @@ export default class Card {
     return this.element;
   }
 }
+

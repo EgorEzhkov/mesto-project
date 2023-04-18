@@ -1,5 +1,5 @@
 // FormValidator принимает настройки селектора и саму форму в констркутор, так как для каждой формы будет создаваться свой валидатор в которую будет передана сама форма.
-class FormValidator {
+export default class FormValidator {
   constructor(settings, formElement) {
     this.inputSelector = settings.inputSelector;
     this.submitButtonSelector = settings.submitButtonSelector;
