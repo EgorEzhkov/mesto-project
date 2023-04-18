@@ -1,5 +1,4 @@
 import Popup from "./popup.js";
-
 export default class PopupWithForm extends Popup {
   constructor({submitCallBack}, selector) {
     super(selector);
@@ -31,8 +30,6 @@ export default class PopupWithForm extends Popup {
       this.formSubmitButton.textContent = this.currentText;
     }
   }
-
-
 
   setEventListeners() {
     super.setEventListeners();
