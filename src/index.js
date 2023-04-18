@@ -3,6 +3,10 @@ import './styles/index.css';
 import Api from './components/classes/Api.js';
 import Card from './components/classes/Card.js';
 import Section from './components/classes/Section.js';
+import Popup from './components/popup.js';
+import PopupWithForm from './components/PopupWithForm.js';
+import FormValidator, { settings } from './components/classes/FormValidator.js'
+import UserInfo from './components/UserInfo';
 
 const config = {
   server: 'https://nomoreparties.co/v1/plus-cohort-22/',
@@ -147,3 +151,83 @@ enableValidation(settings)
 
 
  */
+
+
+// отображение данных пользователя при начальной загрузке
+const userInfo = new UserInfo('.profile__name', '.profile__profession', '.profile__avatar');
+api.getProfileInfo()
+.then((res) => {
+  userInfo.setUserInfo(res)
+  userInfo.setUserAvatar(res)
+})
+.catch((err) => {console.log(err)});
+
+
+
+const nameInput = document.getElementById('name');
+const aboutInput = document.getElementById('profession');
+const buttonEdit = document.querySelector('.profile__edit-button')
+const buttonAdd = document.querySelector('.profile__add-button')
+const buttonAvatar = document.querySelector('.profile__avatar-edit')
+
+//валидация всех форм
+const formEditValidation = new FormValidator(settings, document.getElementById('edit_popup'))
+formEditValidation.enableValidation()
+const formAddValidation = new FormValidator(settings, document.getElementById('add_popup'))
+formAddValidation.enableValidation()
+const formAvatarValidation = new FormValidator(settings, document.getElementById('avatar_popup'))
+formAvatarValidation.enableValidation()
+
+
+//работа формы редактирования
+const formEditProfile = new PopupWithForm({
+  submitCallBack: (value) => {
+    userInfo.setUserInfo(value);
+    formEditProfile.renderLoading(true, "Сохранение...")
+    api.editProfileInfo(value.name, value.about)
+    .then(() => {
+    })
+    .catch((err) => {console.log(err)})
+    .finally(() => {
+      formEditProfile.renderLoading(false, "Сохранение...")
+    })
+  }
+}, 'edit_popup');
+formEditValidation.enableValidation()
+formEditProfile.setEventListeners()
+buttonEdit.addEventListener('click', () => {
+  const data = userInfo.getUserInfo()
+  formEditProfile.open();
+  nameInput.value = data.name;
+  aboutInput.value = data.about
+});
+
+//работа формы добавление карточек
+const formAddCard = new PopupWithForm({
+  submitCallBack: () => {
+    const data = formAddCard._getInputValues()
+    api.addCard(data.name, data.link)
+    .then((res) => {console.log(res)})
+  }
+}, 'add_popup')
+formAddCard.setEventListeners()
+buttonAdd.addEventListener('click', () => {
+  formAddCard.open()
+})
+
+//работа формы изменения аватара
+const formAvatarProfile = new PopupWithForm({
+  submitCallBack: (value) => {
+
+    formAvatarProfile.renderLoading(true, "Сохранение...")
+    api.editProfileAvatar(value)
+    .catch((err) => {console.log(err)})
+    .finally(() => {
+      formAvatarProfile.renderLoading(false, '')
+    })
+  }
+}, 'avatar_popup')
+formAvatarProfile.setEventListeners()
+buttonAvatar.addEventListener('click', () => {
+  formAvatarProfile.open()
+})
