@@ -27,9 +27,7 @@ export default class Card {
   _checkIdOwner(deleteButton) {
     if (this.cardOwner !== this.userId) {
       deleteButton.remove();
-    } else {
-      deleteButton.addEventListener('click', this.deleteCard());
-    }
+    } 
   }
 
   _toggleButtonLikes(likeCounter, like) {
@@ -58,10 +56,15 @@ export default class Card {
     this._handleCardClick(cardImage);
   }
 
+  _deleteCard(deleteButton) {
+    this._checkIdOwner(deleteButton);
+    this.deleteCard(deleteButton);
+  }
+
   _setEventListeners(cardImage, likeCounter, like, trash) {
-    this._handleImageClick(cardImage)
+    this._handleImageClick(cardImage);
     this._toggleButtonLikes(likeCounter, like);
-    this._checkIdOwner(trash);
+    this._deleteCard(trash);
   }
 
   generate() {
