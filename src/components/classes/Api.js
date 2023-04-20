@@ -13,26 +13,26 @@ export default class Api {
     return Promise.reject(`Ошибка: ${res.status}`);
   }
 
-  _request(server, settings) {
+  request(server, settings) {
     return fetch(server, settings).then(this._checkResponse);
   }
 
   getProfileInfo() {
-    return this._request(this.server + 'users/me', {
+    return this.request(this.server + 'users/me', {
       method: 'GET',
       headers: this.headers
     });
   }
 
   getCardsForServer() {
-    return this._request(`${this.server}cards`, {
+    return this.request(`${this.server}cards`, {
       method: 'GET',
       headers: this.headers
     });
   }
 
   editProfileInfo(name, about) {
-    return this._request(`${this.server}users/me`, {
+    return this.request(`${this.server}users/me`, {
       method: 'PATCH',
       headers: this.headers,
       body: JSON.stringify({
@@ -43,7 +43,7 @@ export default class Api {
   }
 
   editProfileAvatar(link) {
-    return this._request(`${this.server}users/me/avatar`, {
+    return this.request(`${this.server}users/me/avatar`, {
       method: 'PATCH',
       headers: this.headers,
       body: JSON.stringify({

@@ -1,4 +1,10 @@
 export function findError(err) {
   console.log(`Ошибка: ${err}`)
-  console.log('lala')
 }
+
+//Функция открытия, навешивание слушетелей и включение валидации для форм
+export function actionsForm(form, formValidation) {
+  form.open();
+  form.setEventListeners();
+  formValidation.enableValidation();
+};

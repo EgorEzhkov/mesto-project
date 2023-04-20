@@ -7,7 +7,7 @@ import PopupWithImage from './components/PopupWithImage.js';
 import PopupWithForm from './components/PopupWithForm.js';
 import FormValidator, { settings } from './components/classes/FormValidator.js'
 import UserInfo from './components/UserInfo';
-import { findError } from './utils/utils.js';
+import { findError, actionsForm } from './utils/utils.js';
 
 const config = {
   server: 'https://nomoreparties.co/v1/plus-cohort-22/',
@@ -90,13 +90,10 @@ const buttonEdit = document.querySelector('.profile__edit-button')
 const buttonAdd = document.querySelector('.profile__add-button')
 const buttonAvatar = document.querySelector('.profile__avatar-edit')
 
-//валидация всех форм
+
 const formEditValidation = new FormValidator(settings, document.getElementById('edit_popup'))
-formEditValidation.enableValidation()
 const formAddValidation = new FormValidator(settings, document.getElementById('add_popup'))
-formAddValidation.enableValidation()
 const formAvatarValidation = new FormValidator(settings, document.getElementById('avatar_popup'))
-formAvatarValidation.enableValidation()
 
 
 //работа формы редактирования
@@ -111,16 +108,13 @@ const formEditProfile = new PopupWithForm({
     })
   }
 }, 'edit_popup');
-formEditValidation.enableValidation()
-formEditProfile.setEventListeners()
+
 buttonEdit.addEventListener('click', () => {
+  actionsForm(formEditProfile, formEditValidation)
   const data = userInfo.getUserInfo()
-  formEditProfile.open();
   nameInput.value = data.name;
   aboutInput.value = data.about
 });
-
-
 
 //работа формы добавление карточек
 const formAddCard = new PopupWithForm({
@@ -136,10 +130,8 @@ const formAddCard = new PopupWithForm({
     })
   }
 }, 'add_popup')
-formAddCard.setEventListeners()
 buttonAdd.addEventListener('click', () => {
-  formAddCard.open()
-  formAddValidation.enableValidation()
+  actionsForm(formAddCard, formAddValidation)
 });
 
 //работа формы изменения аватара
@@ -150,14 +142,12 @@ const formAvatarProfile = new PopupWithForm({
     .then((res) => {
       avatarProfile.src = res.avatar;
     })
-    .catch((err) => findError(err))
+    .catch((err) => {findError(err)})
     .finally(() => {
       formAvatarProfile.renderLoading(false, '')
     })
   }
 }, 'avatar_popup')
-formAvatarProfile.setEventListeners()
 buttonAvatar.addEventListener('click', () => {
-  formAvatarProfile.open()
-  formAvatarValidation.enableValidation()
+  actionsForm(formAvatarProfile, formAvatarValidation)
 });
