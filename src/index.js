@@ -3,11 +3,11 @@ import './styles/index.css';
 import Api from './components/classes/Api.js';
 import Card from './components/classes/Card.js';
 import Section from './components/classes/Section.js';
-import Popup from './components/popup.js';
 import PopupWithImage from './components/PopupWithImage.js';
 import PopupWithForm from './components/PopupWithForm.js';
 import FormValidator, { settings } from './components/classes/FormValidator.js'
 import UserInfo from './components/UserInfo';
+import { findError } from './utils/utils.js';
 
 const config = {
   server: 'https://nomoreparties.co/v1/plus-cohort-22/',
@@ -39,7 +39,7 @@ function createCard(cardInfo) {
             likeCounter.classList.add('cards__like-counter_active');
           }
         })
-        .catch(card._findError)},
+        .catch((err) => findError(err))},
     deleteLike: (likeCounter, like) => {
       api.deleteLike(cardInfo._id)
         .then((data) => {
@@ -49,13 +49,14 @@ function createCard(cardInfo) {
             likeCounter.classList.remove('cards__like-counter_active');
           }
         })
-        .catch(card._findError);
+        .catch((err) => findError(err))
     },
     deleteCard: (trash) => {
       trash.addEventListener('click', () => {
         api.deleteCard(cardInfo._id).then(() => {
           card.element.remove();
-        }).catch(card._findError)
+        })
+        .catch((err) => findError(err))
       });
     },
     handleCardClick: (cardImage) => {
@@ -79,7 +80,7 @@ Promise.all([api.getProfileInfo(), api.getCardsForServer()])
   section.items = data;
   section.renderItems();
 })
-.catch((err) => {console.log(err)});
+.catch((err) => findError(err))
 
 
 const nameInput = document.getElementById('name');
@@ -104,11 +105,9 @@ const formEditProfile = new PopupWithForm({
     userInfo.setUserInfo(value);
     formEditProfile.renderLoading(true, "Сохранение...")
     api.editProfileInfo(value.name, value.about)
-    .then(() => {
-    })
-    .catch((err) => {console.log(err)})
+    .catch((err) => findError(err))
     .finally(() => {
-      formEditProfile.renderLoading(false, "Сохранение...")
+      formEditProfile.renderLoading(false, "")
     })
   }
 }, 'edit_popup');
@@ -126,10 +125,15 @@ buttonEdit.addEventListener('click', () => {
 //работа формы добавление карточек
 const formAddCard = new PopupWithForm({
   submitCallBack: (value) => {
+    formAddCard.renderLoading(true, 'Создание...')
     api.addCard(value.mesto, value.link)
     .then((data) => {
       section.addItemFirst(createCard(data));
-    });
+    })
+    .catch((err) => findError(err))
+    .finally(() => {
+      formAddCard.renderLoading(false, '')
+    })
   }
 }, 'add_popup')
 formAddCard.setEventListeners()
@@ -146,7 +150,7 @@ const formAvatarProfile = new PopupWithForm({
     .then((res) => {
       avatarProfile.src = res.avatar;
     })
-    .catch((err) => {console.log(err)})
+    .catch((err) => findError(err))
     .finally(() => {
       formAvatarProfile.renderLoading(false, '')
     })

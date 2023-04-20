@@ -15,10 +15,6 @@ export default class Card {
     this.cardTemplate = selectorTemplate;
   }
 
-  _findError(err) {
-    console.log(`Ошибка: ${err}`);
-  }
-
   _getElement() {
     const cardElement = document.querySelector(this.cardTemplate).content.querySelector('.cards__card').cloneNode(true);
     return cardElement;
@@ -27,7 +23,7 @@ export default class Card {
   _checkIdOwner(deleteButton) {
     if (this.cardOwner !== this.userId) {
       deleteButton.remove();
-    } 
+    }
   }
 
   _toggleButtonLikes(likeCounter, like) {
