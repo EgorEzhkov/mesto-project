@@ -102,7 +102,10 @@ const formEditProfile = new PopupWithForm({
     userInfo.setUserInfo(value);
     formEditProfile.renderLoading(true, "Сохранение...")
     api.editProfileInfo(value.name, value.about)
-    .catch((err) => findError(err))
+    .then(() => {
+
+    })
+    .catch((err) => {console.log(err)})
     .finally(() => {
       formEditProfile.renderLoading(false, "")
     })
