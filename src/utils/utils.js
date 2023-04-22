@@ -1,6 +1,8 @@
 import Card from "../components/Card.js";
-import {api} from "./constants.js";
+import {api, settings} from "./constants.js";
 import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import FormValidator from "../components/FormValidator.js";
 
 function createCard(cardInfo, ownerId) {
   const card = new Card({
@@ -46,8 +48,31 @@ function createCard(cardInfo, ownerId) {
   const cardElement = card.generate();
   return cardElement;
 }
+
 function findError(err) {
   console.log(`Ошибка: ${err}`)
 }
 
-export {createCard, findError};
+function renderLoading(isLoading, button, loadingText, buttonText) {
+  if (isLoading) {
+    button.textContent = loadingText;
+  } else {
+    button.textContent = buttonText;
+  }
+}
+
+function createForm({api, clickEvent}, button, selector) {
+  const popup = new PopupWithForm({
+    submitCallBack: (value) => {
+      api(value);
+    }
+  }, selector);
+  const formValidation = new FormValidator(settings, popup.form);
+  formValidation.enableValidation();
+  popup.setEventListeners();
+  button.addEventListener('click', () => {
+    clickEvent(popup);
+  });
+}
+
+export {createCard, findError, renderLoading, createForm};
