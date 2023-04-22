@@ -1,94 +1,85 @@
-import { checkResponse } from "./utils.js";
-const token = 'd49dae7b-52fd-4787-ad1c-63454d12ebd1'
-export const trashRemove = true;
-
-const config = {
-  server: 'https://nomoreparties.co/v1/plus-cohort-22/',
-  headers: {
-    authorization: token,
-    'Content-Type': 'application/json'
+export default class Api {
+  constructor(config) {
+    this.server = config.server;
+    this.headers = config.headers;
   }
-};
 
-export function getProfileInfo() {
-  return fetch(config.server + 'users/me', {
-    method: 'GET',
-    headers: config.headers
-  })
-  .then(checkResponse)
-};
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  }
 
-// Загрузка карточек с сервера
-export function getCardsForServer() {
-  return fetch(config.server + 'cards', {
-    method: 'GET',
-    headers: config.headers
-  })
-  .then(checkResponse)
-};
+  _request(server, settings) {
+    return fetch(server, settings).then(this._checkResponse);
+  }
 
+  getProfileInfo() {
+    return this._request(this.server + 'users/me', {
+      method: 'GET',
+      headers: this.headers
+    });
+  }
 
-// Редактирование профиля
-export function editProfileInfo(name, about) {
-  return fetch(config.server + 'users/me', {
-    method: 'PATCH',
-    headers: config.headers,
-    body: JSON.stringify({
-      name: name,
-      about: about
-    })
-  })
-  .then(checkResponse)
-};
+  getCardsForServer() {
+    return this._request(`${this.server}cards`, {
+      method: 'GET',
+      headers: this.headers
+    });
+  }
 
-// Изменение аватарки
-export function editProfileAvatar(link) {
-  return fetch(config.server + 'users/me/avatar', {
-    method: 'PATCH',
-    headers: config.headers,
-    body: JSON.stringify({
-      avatar: link
-    })
-  })
-  .then(checkResponse)
-};
+  editProfileInfo(name, about) {
+    return this._request(`${this.server}users/me`, {
+      method: 'PATCH',
+      headers: this.headers,
+      body: JSON.stringify({
+        name: name,
+        about: about
+      })
+    });
+  }
 
-// Добавление карточки на сервер
-export function addCard(name, link) {
-  return fetch(config.server + 'cards', {
-    method: 'POST',
-    headers: config.headers,
-    body: JSON.stringify({
-      name: name,
-      link: link
-    })
-  })
-  .then(checkResponse)
-};
+  editProfileAvatar(link) {
+    return this._request(`${this.server}users/me/avatar`, {
+      method: 'PATCH',
+      headers: this.headers,
+      body: JSON.stringify({
+        avatar: link
+      })
+    });
+  }
 
-// Удаление карточки
-export function deleteCard(id) {
-  return fetch(config.server + 'cards/' + `${id}`, {
-    method: 'DELETE',
-    headers: config.headers
-  })
-  .then(checkResponse)
+  addCard(name, link) {
+    return this._request(`${this.server}cards`, {
+      method: 'POST',
+      headers: this.headers,
+      body: JSON.stringify({
+        name: name,
+        link: link
+      })
+    });
+  }
+
+  deleteCard(id) {
+    return this._request(`${this.server}cards/${id}`, {
+      method: 'DELETE',
+      headers: this.headers
+    });
+  }
+
+  addLike(id) {
+    return this._request(`${this.server}cards/likes/${id}`, {
+      method: 'PUT',
+      headers: this.headers
+    });
+  }
+
+  deleteLike(id) {
+    return this._request(`${this.server}cards/likes/${id}`, {
+      method: 'DELETE',
+      headers: this.headers
+    });
+  }
 }
 
-export function addLike(id) {
-  return fetch(config.server + 'cards/likes/' + `${id}`, {
-    method: 'PUT',
-    headers: config.headers
-  })
-  .then(checkResponse)
-}
-
-
-
-export function deleteLike(id) {
-  return fetch(config.server + 'cards/likes/' + `${id}`, {
-    method: 'DELETE',
-    headers: config.headers
-  })
-  .then(checkResponse)
-};
