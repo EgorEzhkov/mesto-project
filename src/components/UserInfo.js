@@ -9,8 +9,7 @@ export default class UserInfo {
     return {
       name: this.nameSelector.textContent,
       about: this.aboutSelector.textContent,
-      avatar: this.avatarSelector.src,
-      id: ''
+      avatar: this.avatarSelector.src
     }
   }
 

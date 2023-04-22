@@ -46,5 +46,8 @@ function createCard(cardInfo, ownerId) {
   const cardElement = card.generate();
   return cardElement;
 }
+function findError(err) {
+  console.log(`Ошибка: ${err}`)
+}
 
-export {createCard};
+export {createCard, findError};
