@@ -8,7 +8,7 @@ Promise.all([api.getProfileInfo(), api.getCardsForServer()])
   userInfo.setUserInfo(userData);
   userInfo.setUserAvatar(userData);
   section.items = data;
-  section.renderItems();
+  section.renderItems(userData._id);
 })
 .catch((err) => findError(err));
 

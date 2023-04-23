@@ -11,11 +11,10 @@ const config = {
   }
 };
 const api = new Api(config);
-let userId = 'e871dc8690cbbaff627df173';
 const userInfo = new UserInfo('.profile__name', '.profile__profession', '.profile__avatar');
 const section = new Section({
   items: {},
-  render: (cardInfo) => {
+  render: (cardInfo, userId) => {
     section.addItem(createCard(cardInfo, userId));
   }
 }, '.cards');
@@ -34,4 +33,4 @@ const settings = {
   errorClass: 'popup__input_error-active',
 };
 
-export {api, userInfo, section, nameInput, aboutInput, avatarProfile, buttonEdit, buttonAdd, buttonAvatar, settings, userId};
+export {api, userInfo, section, nameInput, aboutInput, avatarProfile, buttonEdit, buttonAdd, buttonAvatar, settings};
