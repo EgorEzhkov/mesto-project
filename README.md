@@ -25,8 +25,8 @@
 
 **Команда**
 
-Егор. GitHub: https://github.com/EgorEzhkov; yandex: Egorkashpak21@yandex.ru
-Ярослав. GitHub: https://github.com/DislJack; gmail: yaroslavbrok@gmail.com;
+1. Егор. GitHub: https://github.com/EgorEzhkov, yandex: Egorkashpak21@yandex.ru;
+2. Ярослав. GitHub: https://github.com/DislJack, gmail: yaroslavbrok@gmail.com;
 
 **Макет**
 
