@@ -5,8 +5,10 @@
 - О проекте
 - Технологии
 - Команда
+- Ссылка на рабочее пространство при работе в паре(Notion)
 - Ссылка на макет проекта
 - Ссылка на проект
+
 
 **О проекте**
 
@@ -27,6 +29,10 @@
 
 1. Егор. GitHub: https://github.com/EgorEzhkov, yandex: Egorkashpak21@yandex.ru;
 2. Ярослав. GitHub: https://github.com/DislJack, gmail: yaroslavbrok@gmail.com;
+
+**Notion**
+
+https://abrasive-tire-78b.notion.site/e6ae64624ef943428656db594ca38a86?v=7b82da98638e4784a2a7f3410d5d66ec
 
 **Макет**
 
