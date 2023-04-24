@@ -3,7 +3,7 @@ export default class Section {
     this.items = items;
     this._render = render;
 
-    this.containerSelector = document.body.querySelector(containerSelector);
+    this._containerSelector = document.body.querySelector(containerSelector);
   }
 
   renderItems(userId) {
@@ -13,10 +13,10 @@ export default class Section {
   }
 
   addItem(element) {
-    this.containerSelector.append(element);
+    this._containerSelector.append(element);
   }
 
   addItemFirst(element) {
-    this.containerSelector.prepend(element);
+    this._containerSelector.prepend(element);
   }
 }

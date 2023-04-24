@@ -1,7 +1,7 @@
 export default class Api {
   constructor(config) {
-    this.server = config.server;
-    this.headers = config.headers;
+    this._server = config.server;
+    this._headers = config.headers;
   }
 
   _checkResponse(res) {
@@ -16,23 +16,23 @@ export default class Api {
   }
 
   getProfileInfo() {
-    return this._request(this.server + 'users/me', {
+    return this._request(this._server + 'users/me', {
       method: 'GET',
-      headers: this.headers
+      headers: this._headers
     });
   }
 
   getCardsForServer() {
-    return this._request(`${this.server}cards`, {
+    return this._request(`${this._server}cards`, {
       method: 'GET',
-      headers: this.headers
+      headers: this._headers
     });
   }
 
   editProfileInfo(name, about) {
-    return this._request(`${this.server}users/me`, {
+    return this._request(`${this._server}users/me`, {
       method: 'PATCH',
-      headers: this.headers,
+      headers: this._headers,
       body: JSON.stringify({
         name: name,
         about: about
@@ -41,9 +41,9 @@ export default class Api {
   }
 
   editProfileAvatar(link) {
-    return this._request(`${this.server}users/me/avatar`, {
+    return this._request(`${this._server}users/me/avatar`, {
       method: 'PATCH',
-      headers: this.headers,
+      headers: this._headers,
       body: JSON.stringify({
         avatar: link
       })
@@ -51,9 +51,9 @@ export default class Api {
   }
 
   addCard(name, link) {
-    return this._request(`${this.server}cards`, {
+    return this._request(`${this._server}cards`, {
       method: 'POST',
-      headers: this.headers,
+      headers: this._headers,
       body: JSON.stringify({
         name: name,
         link: link
@@ -62,23 +62,23 @@ export default class Api {
   }
 
   deleteCard(id) {
-    return this._request(`${this.server}cards/${id}`, {
+    return this._request(`${this._server}cards/${id}`, {
       method: 'DELETE',
-      headers: this.headers
+      headers: this._headers
     });
   }
 
   addLike(id) {
-    return this._request(`${this.server}cards/likes/${id}`, {
+    return this._request(`${this._server}cards/likes/${id}`, {
       method: 'PUT',
-      headers: this.headers
+      headers: this._headers
     });
   }
 
   deleteLike(id) {
-    return this._request(`${this.server}cards/likes/${id}`, {
+    return this._request(`${this._server}cards/likes/${id}`, {
       method: 'DELETE',
-      headers: this.headers
+      headers: this._headers
     });
   }
 }

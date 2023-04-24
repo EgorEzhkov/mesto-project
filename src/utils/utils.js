@@ -72,6 +72,7 @@ function createForm({api, clickEvent}, button, selector) {
   popup.setEventListeners();
   button.addEventListener('click', () => {
     clickEvent(popup);
+    formValidation.enableValidation();
   });
 }
 

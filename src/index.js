@@ -28,8 +28,8 @@ createForm({
     const data = userInfo.getUserInfo()
     popup.open();
     nameInput.value = data.name;
-    aboutInput.value = data.about}}, 
-  buttonEdit, 
+    aboutInput.value = data.about}},
+  buttonEdit,
   'edit_popup');
 
 
@@ -37,21 +37,21 @@ createForm({
 createForm({
   api: (value) => {
     const button = document.querySelector('#popup__submit_add');
-    renderLoading(true, button, "Сохранение...", "Сохранить");
+    renderLoading(true, button, "Создание...", "Создать");
     api.addCard(value.mesto, value.link)
       .then((data) => {
         section.addItemFirst(createCard(data, data.owner._id));
-      })    
+      })
       .catch((err) => findError(err))
       .finally(() => {
-        renderLoading(true, button, "Сохранение...", "Сохранить");
+        renderLoading(false, button, "", "Создать");
       })},
   clickEvent: (popup) => {
     popup.open();
-  }}, 
-  buttonAdd, 
+  }},
+  buttonAdd,
   'add_popup');
-  
+
 
 // Создание формы и попапа для обновления аватара
 createForm({
@@ -64,10 +64,10 @@ createForm({
       })
       .catch((err) => findError(err))
       .finally(() => {
-        renderLoading(true, button, "Сохранение...", "Сохранить");
+        renderLoading(false, button, "", "Сохранить");
       })},
   clickEvent: (popup) => {
     popup.open();
-  }}, 
-  buttonAvatar, 
+  }},
+  buttonAvatar,
   'avatar_popup');
