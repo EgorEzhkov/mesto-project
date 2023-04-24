@@ -65,18 +65,6 @@ export default class FormValidator {
   }
 
   enableValidation() {
-    this.formElement.addEventListener('submit', (evt) => {
-      evt.preventDefault();
-    });
     this._setEventListeners();
   }
 }
-
-export const settings = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__submit',
-  inactiveButtonClass: 'popup__submit_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input_error-active',
-};
