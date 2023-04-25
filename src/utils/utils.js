@@ -64,7 +64,7 @@ function renderLoading(isLoading, button, loadingText, buttonText) {
 function createForm({api, clickEvent}, button, selector) {
   const popup = new PopupWithForm({
     submitCallBack: (value) => {
-      api(value);
+      api(value, popup);
     }
   }, selector);
   const formValidation = new FormValidator(settings, popup.form);
