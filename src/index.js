@@ -1,3 +1,4 @@
+import Popup from './components/popup';
 import './styles/index.css';
 
 import {api, userInfo, section, nameInput, aboutInput, avatarProfile, buttonEdit, buttonAdd, buttonAvatar} from './utils/constants.js';
@@ -15,11 +16,12 @@ Promise.all([api.getProfileInfo(), api.getCardsForServer()])
 
 // Создание формы и попапа для данных пользователя
 createForm({
-  api: (value) => {
+  api: (value, popup) => {
     const button = document.querySelector('#popup__submit_profile');
     renderLoading(true, button, "Сохранение...", "Сохранить");
     userInfo.setUserInfo(value);
     api.editProfileInfo(value.name, value.about)
+      .then(() => {popup.close()})
       .catch((err) => findError(err))
       .finally(() => {
         renderLoading(false, button, "", "Сохранить");
@@ -28,46 +30,48 @@ createForm({
     const data = userInfo.getUserInfo()
     popup.open();
     nameInput.value = data.name;
-    aboutInput.value = data.about}}, 
-  buttonEdit, 
+    aboutInput.value = data.about}},
+  buttonEdit,
   'edit_popup');
 
 
 // Создание формы и попапа для добавления карточки
 createForm({
-  api: (value) => {
+  api: (value, popup) => {
     const button = document.querySelector('#popup__submit_add');
-    renderLoading(true, button, "Сохранение...", "Сохранить");
+    renderLoading(true, button, "Создание...", "Создать");
     api.addCard(value.mesto, value.link)
       .then((data) => {
         section.addItemFirst(createCard(data, data.owner._id));
-      })    
+        popup.close()
+      })
       .catch((err) => findError(err))
       .finally(() => {
-        renderLoading(true, button, "Сохранение...", "Сохранить");
+        renderLoading(false, button, "", "Создать");
       })},
   clickEvent: (popup) => {
     popup.open();
-  }}, 
-  buttonAdd, 
+  }},
+  buttonAdd,
   'add_popup');
-  
+
 
 // Создание формы и попапа для обновления аватара
 createForm({
-  api: (value) => {
+  api: (value, popup) => {
     const button = document.querySelector('#popup__submit_avatar');
     renderLoading(true, button, "Сохранение...", "Сохранить");
     api.editProfileAvatar(value.avatarLink)
       .then((res) => {
         avatarProfile.src = res.avatar;
+        popup.close();
       })
       .catch((err) => findError(err))
       .finally(() => {
-        renderLoading(true, button, "Сохранение...", "Сохранить");
+        renderLoading(false, button, "", "Сохранить");
       })},
   clickEvent: (popup) => {
     popup.open();
-  }}, 
-  buttonAvatar, 
+  }},
+  buttonAvatar,
   'avatar_popup');

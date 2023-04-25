@@ -2,52 +2,48 @@
 
 export default class Card {
   constructor({cardData, addLike, deleteLike, deleteCard, handleCardClick}, userId, selectorTemplate) {
-    this.cardLink = cardData.link;
-    this.cardName = cardData.name;
-    this.cardOwner = cardData.owner._id;
-    this.cardLikes = cardData.likes;
-    this.cardId = cardData._id;
-    this.addLike = addLike;
-    this.deleteLike = deleteLike;
-    this.userId = userId;
+    this._cardLink = cardData.link;
+    this._cardName = cardData.name;
+    this._cardOwner = cardData.owner._id;
+    this._cardLikes = cardData.likes;
+    this._cardId = cardData._id;
+    this._addLike = addLike;
+    this._deleteLike = deleteLike;
+    this._userId = userId;
     this.deleteCard = deleteCard;
     this._handleCardClick = handleCardClick;
-    this.cardTemplate = selectorTemplate;
-  }
-
-  _findError(err) {
-    console.log(`Ошибка: ${err}`);
+    this._cardTemplate = selectorTemplate;
   }
 
   _getElement() {
-    const cardElement = document.querySelector(this.cardTemplate).content.querySelector('.cards__card').cloneNode(true);
+    const cardElement = document.querySelector(this._cardTemplate).content.querySelector('.cards__card').cloneNode(true);
     return cardElement;
   }
 
   _checkIdOwner(deleteButton) {
-    if (this.cardOwner !== this.userId) {
+    if (this._cardOwner !== this._userId) {
       deleteButton.remove();
-    } 
+    }
   }
 
   _toggleButtonLikes(likeCounter, like) {
-    let count = this.cardLikes.length;
+    let count = this._cardLikes.length;
     if (count != 0) {
       likeCounter.classList.add('cards__like-counter_active');
       likeCounter.textContent = count;
     }
 
-    this.cardLikes.forEach((item) => {
-      if (item._id === this.userId) {
+    this._cardLikes.forEach((item) => {
+      if (item._id === this._userId) {
         like.classList.add('cards__like_active');
       }
     });
 
     like.addEventListener('click', () => {
       if (!like.classList.contains('cards__like_active')) {
-        this.addLike(likeCounter, like);
+        this._addLike(likeCounter, like);
       } else {
-        this.deleteLike(likeCounter, like);
+        this._deleteLike(likeCounter, like);
       }
     });
   }
@@ -75,11 +71,11 @@ export default class Card {
     const trash = this.element.querySelector('.cards__trash');
     this._setEventListeners(cardImage, likeCounter, like, trash);
 
-    cardImage.src = this.cardLink;
-    cardImage.alt = this.cardName;
-    likeCounter.textContent = this.cardLikes.length;
-    this.element.querySelector('.cards__name').textContent = this.cardName;
-    this.element.querySelector('.cards__id').textContent = this.cardId;
+    cardImage.src = this._cardLink;
+    cardImage.alt = this._cardName;
+    likeCounter.textContent = this._cardLikes.length;
+    this.element.querySelector('.cards__name').textContent = this._cardName;
+    this.element.querySelector('.cards__id').textContent = this._cardId;
 
     return this.element;
   }

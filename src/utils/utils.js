@@ -16,7 +16,7 @@ function createCard(cardInfo, ownerId) {
             likeCounter.classList.add('cards__like-counter_active');
           }
         })
-        .catch(card._findError)},
+        .catch((err) => {findError(err)})},
     deleteLike: (likeCounter, like) => {
       api.deleteLike(cardInfo._id)
         .then((data) => {
@@ -26,13 +26,13 @@ function createCard(cardInfo, ownerId) {
             likeCounter.classList.remove('cards__like-counter_active');
           }
         })
-        .catch(card._findError);
+        .catch((err) => {findError(err)});
     },
     deleteCard: (trash) => {
       trash.addEventListener('click', () => {
         api.deleteCard(cardInfo._id).then(() => {
           card.element.remove();
-        }).catch(card._findError)
+        }).catch((err) => {findError(err)})
       });
     },
     handleCardClick: (cardImage) => {
@@ -64,7 +64,7 @@ function renderLoading(isLoading, button, loadingText, buttonText) {
 function createForm({api, clickEvent}, button, selector) {
   const popup = new PopupWithForm({
     submitCallBack: (value) => {
-      api(value);
+      api(value, popup);
     }
   }, selector);
   const formValidation = new FormValidator(settings, popup.form);
@@ -72,6 +72,7 @@ function createForm({api, clickEvent}, button, selector) {
   popup.setEventListeners();
   button.addEventListener('click', () => {
     clickEvent(popup);
+    formValidation.enableValidation();
   });
 }
 
