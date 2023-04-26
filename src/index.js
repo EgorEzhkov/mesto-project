@@ -19,9 +19,11 @@ createForm({
   api: (value, popup) => {
     const button = document.querySelector('#popup__submit_profile');
     renderLoading(true, button, "Сохранение...", "Сохранить");
-    userInfo.setUserInfo(value);
     api.editProfileInfo(value.name, value.about)
-      .then(() => {popup.close()})
+      .then(() => {
+        userInfo.setUserInfo(value);
+        popup.close()
+      })
       .catch((err) => findError(err))
       .finally(() => {
         renderLoading(false, button, "", "Сохранить");
@@ -63,7 +65,7 @@ createForm({
     renderLoading(true, button, "Сохранение...", "Сохранить");
     api.editProfileAvatar(value.avatarLink)
       .then((res) => {
-        avatarProfile.src = res.avatar;
+        userInfo.setUserAvatar(res);
         popup.close();
       })
       .catch((err) => findError(err))
