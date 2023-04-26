@@ -1,7 +1,7 @@
 import Popup from './components/popup';
 import './styles/index.css';
 
-import {api, userInfo, section, nameInput, aboutInput, avatarProfile, buttonEdit, buttonAdd, buttonAvatar} from './utils/constants.js';
+import {api, userInfo, section, nameInput, aboutInput, buttonEdit, buttonAdd, buttonAvatar} from './utils/constants.js';
 import { createCard, findError, renderLoading, createForm } from './utils/utils.js';
 
 Promise.all([api.getProfileInfo(), api.getCardsForServer()])
