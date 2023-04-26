@@ -22,7 +22,6 @@ const cardsContainer = new Section({
 const popupImage = new PopupWithImage('', '', 'image_popup');
 const nameInput = document.getElementById('name');
 const aboutInput = document.getElementById('profession');
-const avatarProfile = document.querySelector('.profile__avatar');
 const buttonEdit = document.querySelector('.profile__edit-button');
 const buttonAdd = document.querySelector('.profile__add-button');
 const buttonAvatar = document.querySelector('.profile__avatar-edit');
@@ -35,4 +34,4 @@ const settings = {
   errorClass: 'popup__input_error-active',
 };
 
-export {api, userInfo, cardsContainer, nameInput, aboutInput, avatarProfile, buttonEdit, buttonAdd, buttonAvatar, settings, popupImage};
+export {api, userInfo, cardsContainer, nameInput, aboutInput, buttonEdit, buttonAdd, buttonAvatar, settings, popupImage};
