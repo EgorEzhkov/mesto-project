@@ -1,7 +1,8 @@
-import Api from "../components/api.js";
+import Api from "../components/Api.js";
 import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
 import { createCard } from "./utils.js";
+import PopupWithImage from "../components/PopupWithImage.js";
 
 const config = {
   server: 'https://nomoreparties.co/v1/plus-cohort-22/',
@@ -12,12 +13,13 @@ const config = {
 };
 const api = new Api(config);
 const userInfo = new UserInfo('.profile__name', '.profile__profession', '.profile__avatar');
-const section = new Section({
+const cardsContainer = new Section({
   items: {},
   render: (cardInfo, userId) => {
-    section.addItem(createCard(cardInfo, userId));
+    cardsContainer.addItem(createCard(cardInfo, userId));
   }
 }, '.cards');
+const popupImage = new PopupWithImage('', '', 'image_popup');
 const nameInput = document.getElementById('name');
 const aboutInput = document.getElementById('profession');
 const avatarProfile = document.querySelector('.profile__avatar');
@@ -33,4 +35,4 @@ const settings = {
   errorClass: 'popup__input_error-active',
 };
 
-export {api, userInfo, section, nameInput, aboutInput, avatarProfile, buttonEdit, buttonAdd, buttonAvatar, settings};
+export {api, userInfo, cardsContainer, nameInput, aboutInput, avatarProfile, buttonEdit, buttonAdd, buttonAvatar, settings, popupImage};

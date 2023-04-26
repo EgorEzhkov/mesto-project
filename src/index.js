@@ -1,15 +1,15 @@
 import Popup from './components/popup';
 import './styles/index.css';
 
-import {api, userInfo, section, nameInput, aboutInput, avatarProfile, buttonEdit, buttonAdd, buttonAvatar} from './utils/constants.js';
+import {api, userInfo, cardsContainer, nameInput, aboutInput, avatarProfile, buttonEdit, buttonAdd, buttonAvatar} from './utils/constants.js';
 import { createCard, findError, renderLoading, createForm } from './utils/utils.js';
 
 Promise.all([api.getProfileInfo(), api.getCardsForServer()])
 .then(([userData, data]) => {
   userInfo.setUserInfo(userData);
   userInfo.setUserAvatar(userData);
-  section.items = data;
-  section.renderItems(userData._id);
+  cardsContainer.items = data;
+  cardsContainer.renderItems(userData._id);
 })
 .catch((err) => findError(err));
 
@@ -42,7 +42,7 @@ createForm({
     renderLoading(true, button, "Создание...", "Создать");
     api.addCard(value.mesto, value.link)
       .then((data) => {
-        section.addItemFirst(createCard(data, data.owner._id));
+        cardsContainer.addItemFirst(createCard(data, data.owner._id));
         popup.close()
       })
       .catch((err) => findError(err))
