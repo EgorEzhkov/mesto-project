@@ -1,6 +1,5 @@
 import Card from "../components/Card.js";
-import {api, settings} from "./constants.js";
-import PopupWithImage from "../components/PopupWithImage.js";
+import {api, settings, popupImage} from "./constants.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import FormValidator from "../components/FormValidator.js";
 
@@ -10,34 +9,27 @@ function createCard(cardInfo, ownerId) {
     addLike: (likeCounter, like) => {
       api.addLike(cardInfo._id)
         .then((data) => {
-          likeCounter.textContent = data.likes.length;
-          like.classList.add('cards__like_active');
-          if (!likeCounter.classList.contains('cards__like-counter_active')) {
-            likeCounter.classList.add('cards__like-counter_active');
-          }
+          card.putLike(data, likeCounter, like);
         })
         .catch((err) => {findError(err)})},
     deleteLike: (likeCounter, like) => {
       api.deleteLike(cardInfo._id)
         .then((data) => {
-          likeCounter.textContent = data.likes.length;
-          like.classList.remove('cards__like_active');
-          if (data.likes.length === 0) {
-            likeCounter.classList.remove('cards__like-counter_active');
-          }
+          card.deleteLike(data, likeCounter, like);
         })
         .catch((err) => {findError(err)});
     },
     deleteCard: (trash) => {
       trash.addEventListener('click', () => {
         api.deleteCard(cardInfo._id).then(() => {
-          card.element.remove();
+          card.cardRemove();
         }).catch((err) => {findError(err)})
       });
     },
     handleCardClick: (cardImage) => {
-      const popupImage = new PopupWithImage(cardInfo.link, cardInfo.name, 'image_popup')
       cardImage.addEventListener('click', () => {
+        popupImage.image = cardInfo.link;
+        popupImage.text = cardInfo.name;
         popupImage.open()
         popupImage.setEventListeners()
       })

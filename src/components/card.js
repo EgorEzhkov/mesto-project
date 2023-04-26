@@ -28,7 +28,7 @@ export default class Card {
 
   _toggleButtonLikes(likeCounter, like) {
     let count = this._cardLikes.length;
-    if (count != 0) {
+    if (count !== 0) {
       likeCounter.classList.add('cards__like-counter_active');
       likeCounter.textContent = count;
     }
@@ -61,6 +61,26 @@ export default class Card {
     this._handleImageClick(cardImage);
     this._toggleButtonLikes(likeCounter, like);
     this._deleteCard(trash);
+  }
+
+  putLike(data, likeCounter, like) {
+    likeCounter.textContent = data.likes.length;
+    like.classList.add('cards__like_active');
+    if (!likeCounter.classList.contains('cards__like-counter_active')) {
+      likeCounter.classList.add('cards__like-counter_active');
+    }
+  }
+
+  deleteLike(data, likeCounter, like) {
+    likeCounter.textContent = data.likes.length;
+    like.classList.remove('cards__like_active');
+    if (data.likes.length === 0) {
+      likeCounter.classList.remove('cards__like-counter_active');
+    }
+  }
+
+  cardRemove() {
+    this.element.remove();
   }
 
   generate() {
