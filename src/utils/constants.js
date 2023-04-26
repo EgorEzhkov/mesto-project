@@ -20,7 +20,6 @@ const section = new Section({
 }, '.cards');
 const nameInput = document.getElementById('name');
 const aboutInput = document.getElementById('profession');
-const avatarProfile = document.querySelector('.profile__avatar');
 const buttonEdit = document.querySelector('.profile__edit-button');
 const buttonAdd = document.querySelector('.profile__add-button');
 const buttonAvatar = document.querySelector('.profile__avatar-edit');
@@ -33,4 +32,4 @@ const settings = {
   errorClass: 'popup__input_error-active',
 };
 
-export {api, userInfo, section, nameInput, aboutInput, avatarProfile, buttonEdit, buttonAdd, buttonAvatar, settings};
+export {api, userInfo, section, nameInput, aboutInput, buttonEdit, buttonAdd, buttonAvatar, settings};

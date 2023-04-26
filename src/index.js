@@ -1,7 +1,7 @@
 import Popup from './components/popup';
 import './styles/index.css';
 
-import {api, userInfo, section, nameInput, aboutInput, avatarProfile, buttonEdit, buttonAdd, buttonAvatar} from './utils/constants.js';
+import {api, userInfo, section, nameInput, aboutInput, buttonEdit, buttonAdd, buttonAvatar} from './utils/constants.js';
 import { createCard, findError, renderLoading, createForm } from './utils/utils.js';
 
 Promise.all([api.getProfileInfo(), api.getCardsForServer()])
@@ -19,9 +19,11 @@ createForm({
   api: (value, popup) => {
     const button = document.querySelector('#popup__submit_profile');
     renderLoading(true, button, "Сохранение...", "Сохранить");
-    userInfo.setUserInfo(value);
     api.editProfileInfo(value.name, value.about)
-      .then(() => {popup.close()})
+      .then(() => {
+        userInfo.setUserInfo(value);
+        popup.close()
+      })
       .catch((err) => findError(err))
       .finally(() => {
         renderLoading(false, button, "", "Сохранить");
@@ -63,7 +65,7 @@ createForm({
     renderLoading(true, button, "Сохранение...", "Сохранить");
     api.editProfileAvatar(value.avatarLink)
       .then((res) => {
-        avatarProfile.src = res.avatar;
+        userInfo.setUserAvatar(res);
         popup.close();
       })
       .catch((err) => findError(err))
