@@ -1,7 +1,5 @@
 import Card from "../components/Card.js";
-import {api, settings, popupImage} from "./constants.js";
-import PopupWithForm from "../components/PopupWithForm.js";
-import FormValidator from "../components/FormValidator.js";
+import {api, popupImage} from "./constants.js";
 
 function createCard(cardInfo, ownerId) {
   const card = new Card({
@@ -53,19 +51,4 @@ function renderLoading(isLoading, button, loadingText, buttonText) {
   }
 }
 
-function createForm({api, clickEvent}, button, selector) {
-  const popup = new PopupWithForm({
-    submitCallBack: (value) => {
-      api(value, popup);
-    }
-  }, selector);
-  const formValidation = new FormValidator(settings, popup.form);
-  formValidation.enableValidation();
-  popup.setEventListeners();
-  button.addEventListener('click', () => {
-    clickEvent(popup);
-    formValidation.enableValidation();
-  });
-}
-
-export {createCard, findError, renderLoading, createForm};
+export {createCard, findError, renderLoading};
