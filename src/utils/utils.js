@@ -1,6 +1,5 @@
 import Card from "../components/Card.js";
-import { api } from "../index.js";
-import {popupImage} from '../index.js'
+import { api, popupImage } from "../index.js";
 
 function createCard(cardInfo, ownerId) {
   const card = new Card({
@@ -27,10 +26,7 @@ function createCard(cardInfo, ownerId) {
     },
     handleCardClick: (cardImage) => {
       cardImage.addEventListener('click', () => {
-        popupImage.image = cardInfo.link;
-        popupImage.text = cardInfo.name;
-        popupImage.open()
-        popupImage.setEventListeners()
+        popupImage.open(cardInfo.link, cardInfo.name);
       })
     }
   },
