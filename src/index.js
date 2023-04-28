@@ -10,8 +10,8 @@ import {nameInput, aboutInput, buttonEdit, buttonAdd, buttonAvatar, settings, co
 import { findError } from './utils/utils.js';
 
 
-export const api = new Api(config);
-export const popupImage = new PopupWithImage('', '', 'image_popup');
+const api = new Api(config);
+const popupImage = new PopupWithImage('', '', 'image_popup');
 const userInfo = new UserInfo('.profile__name', '.profile__profession', '.profile__avatar');
 const cardsContainer = new Section({
   items: {},
@@ -102,3 +102,5 @@ buttonAdd.addEventListener('click', () => {
   popupAddCard.open();
   addCardValidator.toggleButtonState(addCardValidator.inputList, addCardValidator.buttonElement);
 })
+
+export {api, popupImage}
