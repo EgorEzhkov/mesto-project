@@ -27,7 +27,7 @@ export default class Card {
   }
 
   _toggleButtonLikes(likeCounter, like) {
-    let count = this._cardLikes.length;
+    const count = this._cardLikes.length;
     if (count !== 0) {
       likeCounter.classList.add('cards__like-counter_active');
       likeCounter.textContent = count;

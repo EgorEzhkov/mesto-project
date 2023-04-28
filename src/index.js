@@ -11,7 +11,7 @@ import { findError } from './utils/utils.js';
 
 
 const api = new Api(config);
-const popupImage = new PopupWithImage('', '', 'image_popup');
+const popupImage = new PopupWithImage('image_popup');
 const userInfo = new UserInfo('.profile__name', '.profile__profession', '.profile__avatar');
 const cardsContainer = new Section({
   items: {},
@@ -21,8 +21,7 @@ const cardsContainer = new Section({
 }, '.cards');
 const popupProfileInfo = new PopupWithForm({
   submitCallBack: (value) => {
-    const button = document.querySelector('#popup__submit_profile');
-    renderLoading(true, button, "Сохранение...", "Сохранить");
+    popupProfileInfo.renderLoading(true, "Сохранение...");
     api.editProfileInfo(value.name, value.about)
       .then(() => {
         userInfo.setUserInfo(value);
@@ -30,13 +29,12 @@ const popupProfileInfo = new PopupWithForm({
       })
       .catch((err) => findError(err))
       .finally(() => {
-        renderLoading(false, button, "", "Сохранить");
+        popupProfileInfo.renderLoading(false, "Сохранение...");
       })}
 }, 'edit_popup');
 const popupProfileAvatar = new PopupWithForm({
   submitCallBack: (value) => {
-    const button = document.querySelector('#popup__submit_avatar');
-    renderLoading(true, button, "Сохранение...", "Сохранить");
+    popupProfileAvatar.renderLoading(true, "Сохранение...");
     api.editProfileAvatar(value.avatarLink)
       .then((res) => {
         userInfo.setUserAvatar(res);
@@ -44,13 +42,12 @@ const popupProfileAvatar = new PopupWithForm({
       })
       .catch((err) => findError(err))
       .finally(() => {
-        renderLoading(false, button, "", "Сохранить");
+        popupProfileAvatar.renderLoading(false, "Сохранение...");
       })}
 }, 'avatar_popup');
 const popupAddCard = new PopupWithForm({
   submitCallBack: (value) => {
-    const button = document.querySelector('#popup__submit_add');
-    renderLoading(true, button, "Создание...", "Создать");
+    popupAddCard.renderLoading(true, "Создание...");
     api.addCard(value.mesto, value.link)
       .then((data) => {
         cardsContainer.addItemFirst(createCard(data, data.owner._id));
@@ -58,7 +55,7 @@ const popupAddCard = new PopupWithForm({
       })
       .catch((err) => findError(err))
       .finally(() => {
-        renderLoading(false, button, "", "Создать");
+        popupAddCard.renderLoading(false, "Создание...");
       })}
 }, 'add_popup');
 
@@ -76,12 +73,14 @@ Promise.all([api.getProfileInfo(), api.getCardsForServer()])
 })
 .catch((err) => findError(err));
 
+popupImage.setEventListeners();
+
 // Валидация слушатели и работа попапа на обновление автара
 updateProfileAvatarValidator.enableValidation();
 popupProfileAvatar.setEventListeners();
 buttonAvatar.addEventListener('click', () => {
   popupProfileAvatar.open();
-  updateProfileAvatarValidator.toggleButtonState(updateProfileAvatarValidator.inputList, updateProfileAvatarValidator.buttonElement);
+  updateProfileAvatarValidator.toggleButtonState();
 })
 
 // Валидация слушатели и работа попапа на обновление информации о пользователе
@@ -92,7 +91,7 @@ buttonEdit.addEventListener('click', () => {
   popupProfileInfo.open();
   nameInput.value = data.name;
   aboutInput.value = data.about;
-  updateProfileInfoValidator.toggleButtonState(updateProfileInfoValidator.inputList, updateProfileInfoValidator.buttonElement);
+  updateProfileInfoValidator.toggleButtonState();
 })
 
 // Валидация слушатели и работа попапа на добавление карточки
@@ -100,7 +99,7 @@ addCardValidator.enableValidation();
 popupAddCard.setEventListeners();
 buttonAdd.addEventListener('click', () => {
   popupAddCard.open();
-  addCardValidator.toggleButtonState(addCardValidator.inputList, addCardValidator.buttonElement);
+  addCardValidator.toggleButtonState();
 })
 
 export {api, popupImage}
