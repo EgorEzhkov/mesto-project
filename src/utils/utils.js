@@ -1,5 +1,6 @@
 import Card from "../components/Card.js";
-import {api, popupImage} from "./constants.js";
+import { api } from "../index.js";
+import {popupImage} from '../index.js'
 
 function createCard(cardInfo, ownerId) {
   const card = new Card({
